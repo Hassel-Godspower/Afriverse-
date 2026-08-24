@@ -370,6 +370,64 @@
     font-size: 10px;
 }
 
+@media (max-width: 768px) {
+
+    .hero {
+
+        min-height: 850px;
+
+        align-items: flex-start;
+
+    }
+
+
+    .hero-background {
+
+        background-size: auto 100%;
+
+        background-position:
+            67% bottom;
+
+    }
+
+
+    .hero-overlay {
+
+        background:
+
+            linear-gradient(
+                180deg,
+                #020202 0%,
+                rgba(2, 2, 2, 0.94) 25%,
+                rgba(2, 2, 2, 0.78) 48%,
+                rgba(2, 2, 2, 0.25) 72%,
+                rgba(2, 2, 2, 0.78) 100%
+            );
+
+    }
+
+
+    .hero-content {
+
+        padding:
+
+            105px
+
+            24px
+
+            40px;
+
+    }
+
+
+    .hero h1 {
+
+        font-size: 43px;
+
+    }
+
+}
+
 
 
 /* =========================================================
