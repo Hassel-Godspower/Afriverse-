@@ -1,3 +1,4 @@
+
 /* =========================================================
    AFRIVERSE — GLOBAL INTERACTIONS
    ========================================================= */
@@ -523,61 +524,36 @@ document.addEventListener(
            KNOWLEDGE FLYWHEEL
            ================================================= */
 
-        const flywheel =
-            document.querySelector(
-                ".flywheel-ring"
-            );
+        /* =========================================================
+   AFRIVERSE FLYWHEEL ROTATION
+========================================================= */
 
+const flywheel = document.querySelector(".flywheel-ring");
 
-        if (flywheel) {
+if (flywheel) {
 
-            let rotation = 0;
+    let rotation = 0;
+    let lastTime = performance.now();
 
-            let lastTime =
-                performance.now();
+    const rotationSpeed = 0.018;
 
+    function animateFlywheel(currentTime) {
 
-            const animateFlywheel =
-                (time) => {
+        const delta = currentTime - lastTime;
+        lastTime = currentTime;
 
-                    const delta =
-                        time - lastTime;
+        rotation += delta * rotationSpeed;
 
+        flywheel.style.setProperty(
+            "--fly-rotation",
+            `${rotation}deg`
+        );
 
-                    lastTime = time;
+        requestAnimationFrame(animateFlywheel);
+    }
 
-
-                    rotation +=
-                        delta * 0.002;
-
-
-                    flywheel.style.setProperty(
-                        "--fly-rotation",
-                        `${rotation}deg`
-                    );
-
-
-                    requestAnimationFrame(
-                        animateFlywheel
-                    );
-
-                };
-
-
-            /*
-             * Deliberately subtle.
-             *
-             * The individual nodes remain
-             * visually stable while the
-             * surrounding system receives
-             * atmospheric motion.
-             */
-
-            requestAnimationFrame(
-                animateFlywheel
-            );
-
-        }
+    requestAnimationFrame(animateFlywheel);
+}
 
 
         /* =================================================
