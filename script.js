@@ -520,39 +520,64 @@ document.addEventListener(
         );
 
 
-        /* =================================================
-           KNOWLEDGE FLYWHEEL
-           ================================================= */
-
         /* =========================================================
-   AFRIVERSE FLYWHEEL ROTATION
+   AFRIVERSE KNOWLEDGE FLYWHEEL
+   Rotating orbit + static center
 ========================================================= */
 
-const flywheel = document.querySelector(".flywheel-ring");
+const flywheelOrbit =
+    document.querySelector(".flywheel-orbit");
 
-if (flywheel) {
+
+if (flywheelOrbit) {
 
     let rotation = 0;
-    let lastTime = performance.now();
+
+    let lastTime =
+        performance.now();
+
+
+    /*
+     * Rotation speed.
+     *
+     * Increase this value for faster movement.
+     * Decrease it for a slower, more cinematic effect.
+     */
 
     const rotationSpeed = 0.018;
 
+
     function animateFlywheel(currentTime) {
 
-        const delta = currentTime - lastTime;
-        lastTime = currentTime;
+        const delta =
+            currentTime - lastTime;
 
-        rotation += delta * rotationSpeed;
 
-        flywheel.style.setProperty(
+        lastTime =
+            currentTime;
+
+
+        rotation +=
+            delta * rotationSpeed;
+
+
+        flywheelOrbit.style.setProperty(
             "--fly-rotation",
             `${rotation}deg`
         );
 
-        requestAnimationFrame(animateFlywheel);
+
+        requestAnimationFrame(
+            animateFlywheel
+        );
+
     }
 
-    requestAnimationFrame(animateFlywheel);
+
+    requestAnimationFrame(
+        animateFlywheel
+    );
+
 }
 
 
