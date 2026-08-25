@@ -3485,3 +3485,127 @@ article p,
     }
 
 }
+
+}
+
+
+/* =========================================================
+   MOBILE — 650PX
+========================================================= */
+
+@media (max-width: 650px) {
+
+    .container {
+        width: min(100% - 30px, 1180px);
+    }
+
+    .hero {
+        min-height: auto;
+
+        padding: 70px 0 55px;
+    }
+
+    .hero-content {
+        width: 88%;
+
+        padding: 0;
+    }
+
+    .hero-eyebrow {
+        margin-bottom: 22px;
+
+        font-size: 10px;
+
+        letter-spacing: 0.13em;
+    }
+
+    .hero h1 {
+        font-size: 48px;
+    }
+
+    .hero p {
+        margin-top: 26px;
+
+        font-size: 16px;
+
+        line-height: 1.65;
+    }
+
+    .hero .actions {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 18px;
+
+        margin-top: 30px;
+    }
+
+    .hero .actions a {
+        width: auto;
+    }
+
+    .hero-meta {
+        margin-top: 35px;
+    }
+
+    .hero-visual {
+        height: 380px;
+    }
+
+    .architecture-layer {
+        grid-template-columns: 45px 1fr;
+
+        padding: 25px 20px;
+    }
+
+    .layer-arrow {
+        display: none;
+    }
+
+    .google-grid,
+    .business-grid,
+    .resource-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .country-row {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .footer-top,
+    .footer-bottom {
+        flex-direction: column;
+    }
+
+    .footer-links {
+        flex-direction: column;
+    }
+
+    .modal-content {
+        width: 96vw;
+
+        height: 90vh;
+    }
+
+}
+
+
+/* =========================================================
+   ACCESSIBILITY
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .reveal {
+        transition: none;
+    }
+
+    .hero *,
+    .architecture-layer,
+    .google-card,
+    .business-card,
+    .resource-card {
+        transition: none;
+    }
+}
