@@ -519,8 +519,145 @@ document.addEventListener(
             }
         );
 
+/* =========================================================
+   AFRIVERSE HERO — SUBTLE DEPTH
+========================================================= */
 
-        /* =========================================================
+document.addEventListener("DOMContentLoaded", () => {
+
+    const hero = document.querySelector(".hero");
+    const background = document.querySelector(".hero-background");
+
+    if (!hero || !background) {
+        return;
+    }
+
+
+    /*
+     * Do not run the effect on touch devices.
+     */
+
+    if (
+        window.matchMedia(
+            "(pointer: coarse)"
+        ).matches
+    ) {
+        return;
+    }
+
+
+    let targetX = 0;
+    let targetY = 0;
+
+    let currentX = 0;
+    let currentY = 0;
+
+
+    /*
+     * Mouse position.
+     */
+
+    hero.addEventListener(
+        "mousemove",
+        (event) => {
+
+            const rect =
+                hero.getBoundingClientRect();
+
+
+            const x =
+                (
+                    event.clientX -
+                    rect.left
+                ) /
+                rect.width;
+
+
+            const y =
+                (
+                    event.clientY -
+                    rect.top
+                ) /
+                rect.height;
+
+
+            /*
+             * Extremely small movement.
+             *
+             * The pyramid should NOT
+             * visibly float around.
+             */
+
+            targetX =
+                (x - 0.5) * -10;
+
+
+            targetY =
+                (y - 0.5) * -6;
+
+        }
+    );
+
+
+    /*
+     * Smooth interpolation.
+     */
+
+    function animateHeroDepth() {
+
+        currentX +=
+            (
+                targetX -
+                currentX
+            ) * 0.035;
+
+
+        currentY +=
+            (
+                targetY -
+                currentY
+            ) * 0.035;
+
+
+        background.style.setProperty(
+            "--hero-x",
+            `${currentX}px`
+        );
+
+
+        background.style.setProperty(
+            "--hero-y",
+            `${currentY}px`
+        );
+
+
+        requestAnimationFrame(
+            animateHeroDepth
+        );
+
+    }
+
+
+    animateHeroDepth();
+
+
+    /*
+     * Return to center when mouse leaves.
+     */
+
+    hero.addEventListener(
+        "mouseleave",
+        () => {
+
+            targetX = 0;
+            targetY = 0;
+
+        }
+    );
+
+});
+
+/* =========================================================
    AFRIVERSE KNOWLEDGE FLYWHEEL
    Rotating orbit + static center
 ========================================================= */
