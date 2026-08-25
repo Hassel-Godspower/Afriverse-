@@ -413,6 +413,749 @@
 
 }
 
+
+/* =========================================================
+   AFRIVERSE — CINEMATIC HERO
+========================================================= */
+
+.hero {
+
+    position: relative;
+
+    width: 100%;
+
+    min-height: 680px;
+
+    display: flex;
+
+    align-items: center;
+
+    overflow: hidden;
+
+    isolation: isolate;
+
+    background: #020303;
+
+}
+
+
+/* =========================================================
+   HERO BACKGROUND
+========================================================= */
+
+.hero-background {
+
+    position: absolute;
+
+    inset: -2%;
+
+    z-index: -5;
+
+    background-image:
+        url("assets/afriverse-hero.jpg");
+
+    background-repeat: no-repeat;
+
+    background-size: cover;
+
+    background-position:
+        center center;
+
+    transform:
+        translate3d(
+            var(--hero-x, 0px),
+            var(--hero-y, 0px),
+            0
+        )
+        scale(1.015);
+
+    transition:
+        transform 1.2s
+        cubic-bezier(
+            0.2,
+            0.7,
+            0.2,
+            1
+        );
+
+}
+
+
+/* =========================================================
+   DARK CINEMATIC OVERLAY
+========================================================= */
+
+.hero-overlay {
+
+    position: absolute;
+
+    inset: 0;
+
+    z-index: -4;
+
+    pointer-events: none;
+
+    background:
+
+        linear-gradient(
+            90deg,
+            rgba(0, 0, 0, 0.98) 0%,
+            rgba(0, 0, 0, 0.94) 16%,
+            rgba(0, 0, 0, 0.78) 30%,
+            rgba(0, 0, 0, 0.40) 47%,
+            rgba(0, 0, 0, 0.10) 68%,
+            rgba(0, 0, 0, 0.02) 100%
+        ),
+
+        linear-gradient(
+            180deg,
+            rgba(0, 0, 0, 0.18),
+            transparent 35%,
+            rgba(0, 0, 0, 0.42)
+        );
+
+}
+
+
+/* =========================================================
+   COMPUTATIONAL ATMOSPHERE
+========================================================= */
+
+.hero::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 560px;
+
+    height: 560px;
+
+    right: 5%;
+
+    top: 7%;
+
+    z-index: -3;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(224, 170, 52, 0.11) 0%,
+            rgba(224, 170, 52, 0.055) 24%,
+            rgba(224, 170, 52, 0.018) 46%,
+            transparent 72%
+        );
+
+    filter: blur(35px);
+
+    opacity: 0.75;
+
+    animation:
+        heroAtmosphere
+        8s
+        ease-in-out
+        infinite;
+
+    pointer-events: none;
+
+}
+
+
+/* =========================================================
+   MOVING COMPUTATIONAL LIGHT
+========================================================= */
+
+.hero::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 280px;
+
+    height: 280px;
+
+    right: 30%;
+
+    top: 22%;
+
+    z-index: -2;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(239, 187, 67, 0.15) 0%,
+            rgba(239, 187, 67, 0.06) 24%,
+            transparent 68%
+        );
+
+    filter: blur(20px);
+
+    pointer-events: none;
+
+    animation:
+        computationalPulse
+        5.5s
+        ease-in-out
+        infinite;
+
+}
+
+
+/* =========================================================
+   ATMOSPHERE ANIMATION
+========================================================= */
+
+@keyframes heroAtmosphere {
+
+    0%,
+    100% {
+
+        transform:
+            scale(0.92);
+
+        opacity: 0.48;
+
+    }
+
+    50% {
+
+        transform:
+            scale(1.08);
+
+        opacity: 0.82;
+
+    }
+
+}
+
+
+/* =========================================================
+   COMPUTATIONAL PULSE
+========================================================= */
+
+@keyframes computationalPulse {
+
+    0%,
+    100% {
+
+        transform:
+            translate(
+                -35px,
+                20px
+            )
+            scale(0.72);
+
+        opacity: 0.18;
+
+    }
+
+    50% {
+
+        transform:
+            translate(
+                25px,
+                -15px
+            )
+            scale(1.15);
+
+        opacity: 0.62;
+
+    }
+
+}
+
+
+/* =========================================================
+   HERO CONTENT
+========================================================= */
+
+.hero-content {
+
+    position: relative;
+
+    z-index: 5;
+
+    width: min(
+        100%,
+        760px
+    );
+
+    padding:
+
+        110px
+
+        0
+
+        110px
+
+        clamp(
+            28px,
+            6vw,
+            72px
+        );
+
+}
+
+
+/* =========================================================
+   EYEBROW
+========================================================= */
+
+.hero-eyebrow {
+
+    display: block;
+
+    margin-bottom: 20px;
+
+    color: #d8a735;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.14em;
+
+    text-transform: uppercase;
+
+}
+
+
+/* =========================================================
+   HEADLINE
+========================================================= */
+
+.hero h1 {
+
+    max-width: 680px;
+
+    margin: 0;
+
+    color: #ffffff;
+
+    font-size: clamp(
+        46px,
+        5.2vw,
+        76px
+    );
+
+    line-height: 0.98;
+
+    letter-spacing: -0.045em;
+
+    font-weight: 700;
+
+}
+
+
+.hero h1 em {
+
+    display: block;
+
+    margin-top: 8px;
+
+    color: #dca83c;
+
+    font-style: normal;
+
+}
+
+
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
+.hero-content > p {
+
+    max-width: 600px;
+
+    margin:
+
+        28px
+
+        0
+
+        30px;
+
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            0.72
+        );
+
+    font-size: 15px;
+
+    line-height: 1.75;
+
+}
+
+
+/* =========================================================
+   ACTIONS
+========================================================= */
+
+.hero .actions {
+
+    display: flex;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 12px;
+
+}
+
+
+.hero .actions a {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-height: 46px;
+
+    padding:
+        0 19px;
+
+    border:
+        1px solid
+        rgba(
+            218,
+            167,
+            47,
+            0.55
+        );
+
+    border-radius: 6px;
+
+    color: #dfad40;
+
+    text-decoration: none;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    transition:
+        transform 0.25s ease,
+        background 0.25s ease,
+        border-color 0.25s ease;
+
+}
+
+
+.hero .actions a:hover {
+
+    transform:
+        translateY(-2px);
+
+    border-color:
+        rgba(
+            236,
+            188,
+            76,
+            0.9
+        );
+
+    background:
+        rgba(
+            215,
+            165,
+            49,
+            0.08
+        );
+
+}
+
+
+.hero .actions a.primary {
+
+    color: #080808;
+
+    border-color: #dca83c;
+
+    background:
+        linear-gradient(
+            135deg,
+            #e9b84c,
+            #c98f1d
+        );
+
+    box-shadow:
+        0 8px 35px
+        rgba(
+            211,
+            158,
+            42,
+            0.18
+        );
+
+}
+
+
+.hero .actions a.primary:hover {
+
+    background:
+        linear-gradient(
+            135deg,
+            #f2c55c,
+            #d9a02c
+        );
+
+}
+
+
+/* =========================================================
+   HERO META
+========================================================= */
+
+.hero-meta {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    margin-top: 25px;
+
+    color:
+        rgba(
+            222,
+            187,
+            92,
+            0.72
+        );
+
+    font-size: 11px;
+
+}
+
+
+.hero-meta span {
+
+    color: #dca83c;
+
+}
+
+
+/* =========================================================
+   DESKTOP DEPTH
+========================================================= */
+
+@media (min-width: 1100px) {
+
+    .hero-background {
+
+        background-position:
+            center center;
+
+    }
+
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .hero {
+
+        min-height: 700px;
+
+    }
+
+    .hero-content {
+
+        padding-left:
+            40px;
+
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .hero {
+
+        min-height: 850px;
+
+        align-items: flex-start;
+
+    }
+
+
+    .hero-background {
+
+        inset: 0;
+
+        background-size:
+            auto 100%;
+
+        background-position:
+            67% bottom;
+
+        transform:
+            scale(1.01);
+
+    }
+
+
+    .hero-overlay {
+
+        background:
+
+            linear-gradient(
+                180deg,
+                rgba(0, 0, 0, 0.96) 0%,
+                rgba(0, 0, 0, 0.91) 23%,
+                rgba(0, 0, 0, 0.74) 45%,
+                rgba(0, 0, 0, 0.28) 68%,
+                rgba(0, 0, 0, 0.70) 100%
+            );
+
+    }
+
+
+    .hero::before {
+
+        width: 430px;
+
+        height: 430px;
+
+        right: -120px;
+
+        top: 40%;
+
+    }
+
+
+    .hero::after {
+
+        right: 15%;
+
+        top: 47%;
+
+    }
+
+
+    .hero-content {
+
+        width: 100%;
+
+        padding:
+
+            105px
+
+            24px
+
+            50px;
+
+    }
+
+
+    .hero-eyebrow {
+
+        font-size: 9px;
+
+        margin-bottom: 17px;
+
+    }
+
+
+    .hero h1 {
+
+        font-size:
+            clamp(
+                42px,
+                11.5vw,
+                56px
+            );
+
+        line-height: 0.99;
+
+    }
+
+
+    .hero-content > p {
+
+        max-width: 550px;
+
+        margin-top: 23px;
+
+        font-size: 14px;
+
+        line-height: 1.68;
+
+    }
+
+
+    .hero .actions {
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+        width: 100%;
+
+    }
+
+
+    .hero .actions a {
+
+        width: 100%;
+
+    }
+
+
+    .hero-meta {
+
+        margin-top: 20px;
+
+    }
+
+}
+
+
+/* =========================================================
+   ACCESSIBILITY
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .hero::before,
+    .hero::after {
+
+        animation: none;
+
+    }
+
+    .hero-background {
+
+        transition: none;
+
+        transform: none;
+
+    }
+
+}
+
 /* =========================================================
    AFRIVERSE EXTENDED HOMEPAGE
 ========================================================= */
