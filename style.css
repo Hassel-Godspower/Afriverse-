@@ -3364,3 +3364,102 @@
     }  
   
 }  
+
+/* =========================================================
+   PITCH DECK PDF ACTIONS
+========================================================= */
+
+.pdf-actions {
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 16px 20px;
+
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+
+}
+
+
+.pdf-button {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 11px 18px;
+
+    border: 1px solid rgba(212, 175, 55, 0.5);
+
+    color: #d4af37;
+
+    text-decoration: none;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    letter-spacing: 0.04em;
+
+    transition:
+        background 0.25s ease,
+        color 0.25s ease,
+        border-color 0.25s ease;
+
+}
+
+
+.pdf-button:hover {
+
+    background: #d4af37;
+
+    color: #080a09;
+
+    border-color: #d4af37;
+
+}
+
+
+.pdf-button.secondary {
+
+    color: var(--muted);
+
+    border-color: rgba(255, 255, 255, 0.15);
+
+}
+
+
+.pdf-button.secondary:hover {
+
+    color: #080a09;
+
+    background: #d4af37;
+
+    border-color: #d4af37;
+
+}
+
+
+@media (max-width: 600px) {
+
+    .pdf-actions {
+
+        flex-direction: column;
+
+    }
+
+
+    .pdf-button {
+
+        width: 100%;
+
+    }
+
+}
