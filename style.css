@@ -3465,7 +3465,8 @@
 }
 
 /* =========================================================
-   AFRIVERSE MOBILE NAV ICON ANIMATION
+   AFRIVERSE MOBILE NAVIGATION
+   HORIZONTAL FLIP — ONE ICON AT A TIME
 ========================================================== */
 
 .bottom .nav-icon {
@@ -3477,75 +3478,89 @@
 
     transform-origin: center;
 
-    animation: navIconMotion 4s ease-in-out infinite;
+    transform-style: preserve-3d;
+
+    animation: afriverseNavFlip 10s ease-in-out infinite;
 
 }
 
 
 /* =========================================================
-   PULSE + 360° ROTATION
+   HORIZONTAL 360° ROTATION
 ========================================================== */
 
-@keyframes navIconMotion {
+@keyframes afriverseNavFlip {
 
+    /* Rest */
     0% {
-        transform: scale(1) rotate(0deg);
+        transform: rotateY(0deg) scale(1);
     }
 
+    /* Small pulse */
+    3% {
+        transform: rotateY(0deg) scale(1.12);
+    }
+
+    /* Begin horizontal rotation */
+    6% {
+        transform: rotateY(90deg) scale(1.08);
+    }
+
+    /* Halfway */
+    9% {
+        transform: rotateY(180deg) scale(1);
+    }
+
+    /* Continue */
+    12% {
+        transform: rotateY(270deg) scale(1.08);
+    }
+
+    /* Complete 360° */
     15% {
-        transform: scale(1.12) rotate(45deg);
+        transform: rotateY(360deg) scale(1);
     }
 
-    30% {
-        transform: scale(1) rotate(90deg);
-    }
-
-    45% {
-        transform: scale(1.08) rotate(180deg);
-    }
-
-    60% {
-        transform: scale(1) rotate(270deg);
-    }
-
-    75% {
-        transform: scale(1.12) rotate(360deg);
-    }
-
+    /* Rest */
     100% {
-        transform: scale(1) rotate(360deg);
+        transform: rotateY(360deg) scale(1);
     }
 
 }
 
 
 /* =========================================================
-   STAGGER
+   ONLY ONE ICON ANIMATES AT A TIME
 ========================================================== */
 
+/* Home */
 .bottom a:nth-child(1) .nav-icon {
     animation-delay: 0s;
 }
 
+/* Ask */
 .bottom a:nth-child(2) .nav-icon {
-    animation-delay: 0.35s;
+    animation-delay: 2s;
 }
 
+/* Explore */
 .bottom a:nth-child(3) .nav-icon {
-    animation-delay: 0.7s;
+    animation-delay: 4s;
 }
 
+/* Contribute */
 .bottom a:nth-child(4) .nav-icon {
-    animation-delay: 1.05s;
+    animation-delay: 6s;
 }
 
+/* Knowledge */
 .bottom a:nth-child(5) .nav-icon {
-    animation-delay: 1.4s;
+    animation-delay: 8s;
 }
 
 
 /* =========================================================
-   REDUCED MOTION
+   ACCESSIBILITY
 ========================================================== */
 
 @media (prefers-reduced-motion: reduce) {
