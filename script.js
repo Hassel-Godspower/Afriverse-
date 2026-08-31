@@ -821,3 +821,33 @@ if (flywheelOrbit) {
 
     }
 );
+
+const menuButton = document.getElementById("menu");
+const sidebar = document.querySelector(".side");
+
+
+if (menuButton && sidebar) {
+
+    menuButton.addEventListener("pointerdown", function (event) {
+
+        event.stopPropagation();
+
+        sidebar.classList.toggle("open");
+
+    });
+
+
+    sidebar.addEventListener("pointerdown", function (event) {
+
+        event.stopPropagation();
+
+    });
+
+
+    document.addEventListener("pointerdown", function () {
+
+        sidebar.classList.remove("open");
+
+    });
+
+}
