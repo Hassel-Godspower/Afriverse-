@@ -9,17 +9,131 @@ const $$ = (selector) => [
     ...document.querySelectorAll(selector)
 ];
 
-
 /* =========================================================
-   MOBILE SIDEBAR MENU
+   MOBILE SIDEBAR / TOP MENU
    ========================================================= */
 
-$("#menu")?.addEventListener("click", () => {
+const menuButton =
+    document.getElementById("menu");
 
-    $(".side")?.classList.toggle("open");
+const sidebar =
+    document.getElementById("sidebar");
 
-});
 
+if (menuButton && sidebar) {
+
+
+    /* -----------------------------------------------------
+       OPEN / CLOSE MENU
+    ----------------------------------------------------- */
+
+    menuButton.addEventListener(
+        "click",
+        (event) => {
+
+            event.stopPropagation();
+
+            const isOpen =
+                sidebar.classList.toggle("open");
+
+            menuButton.setAttribute(
+                "aria-expanded",
+                isOpen
+            );
+
+        }
+    );
+
+
+    /* -----------------------------------------------------
+       PREVENT OUTSIDE CLICK WHEN TOUCHING SIDEBAR
+       ----------------------------------------------------- */
+
+    sidebar.addEventListener(
+        "click",
+        (event) => {
+
+            event.stopPropagation();
+
+        }
+    );
+
+
+    /* -----------------------------------------------------
+       CLOSE WHEN CLICKING OUTSIDE
+       ----------------------------------------------------- */
+
+    document.addEventListener(
+        "click",
+        (event) => {
+
+            if (
+                !sidebar.classList.contains("open")
+            ) {
+
+                return;
+
+            }
+
+
+            if (
+                sidebar.contains(event.target) ||
+                event.target === menuButton
+            ) {
+
+                return;
+
+            }
+
+
+            sidebar.classList.remove("open");
+
+            menuButton.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+
+        }
+    );
+
+
+    /* -----------------------------------------------------
+       ESCAPE KEY
+       ----------------------------------------------------- */
+
+    document.addEventListener(
+        "keydown",
+        (event) => {
+
+            if (
+                event.key !== "Escape"
+            ) {
+
+                return;
+
+            }
+
+
+            if (
+                !sidebar.classList.contains("open")
+            ) {
+
+                return;
+
+            }
+
+
+            sidebar.classList.remove("open");
+
+            menuButton.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+
+        }
+    );
+
+}
 
 /* =========================================================
    THEME TOGGLE
@@ -822,32 +936,3 @@ if (flywheelOrbit) {
     }
 );
 
-const menuButton = document.getElementById("menu");
-const sidebar = document.querySelector(".side");
-
-
-if (menuButton && sidebar) {
-
-    menuButton.addEventListener("pointerdown", function (event) {
-
-        event.stopPropagation();
-
-        sidebar.classList.toggle("open");
-
-    });
-
-
-    sidebar.addEventListener("pointerdown", function (event) {
-
-        event.stopPropagation();
-
-    });
-
-
-    document.addEventListener("pointerdown", function () {
-
-        sidebar.classList.remove("open");
-
-    });
-
-}
