@@ -1,1 +1,1628 @@
 <!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Questions — AfriVerse</title><link rel="stylesheet" href="style.css"></head><body><main style="margin-left:0"><header><a href="index.html">←</a><b>Questions</b><span class="avatar">AV</span></header><div class="app"><label>CONTRIBUTE</label><h1>Questions that build the network.</h1><p style="color:var(--muted)">Answer one focused question from lived experience.</p><button class="primary" data-modal>＋ Add knowledge</button><div class="cards" style="margin-top:25px"><article><b>AGRICULTURE · NIGERIA</b><h3>What techniques do farmers use during low rainfall?</h3><p>24 responses · 6 regions</p></article><article><b>WATER</b><h3>How do households store rainwater safely?</h3><p>11 responses</p></article><article><b>LANGUAGE</b><h3>What local phrase means “stay strong in hard times”?</h3><p>18 responses</p></article></div></div></main><div class="modal" id="modal"><div class="dialog"><button id="close">×</button><h2>Put local knowledge into the network.</h2><form id="contribute"><div class="field"><label>Region</label><input required placeholder="e.g. Kano, Nigeria"></div><div class="field"><label>Contribution</label><textarea required placeholder="Describe the practice or experience..."></textarea></div><button class="primary">Submit contribution →</button></form></div></div><script src="script.js"></script></body></html>
+
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1"
+    >
+
+    <meta
+        name="description"
+        content="Contribute knowledge to AfriVerse. Share local experience, practical knowledge, language, culture and community wisdom."
+    >
+
+    <title>
+        Contribute Knowledge — AfriVerse
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+    <style>
+
+        /* =========================================================
+           AFRIVERSE QUESTION EXPERIENCE
+        ========================================================== */
+
+        .question-page {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding-bottom: 100px;
+        }
+
+        .question-intro {
+            max-width: 780px;
+            padding: 70px 0 45px;
+        }
+
+        .question-intro h1 {
+            margin-bottom: 20px;
+        }
+
+        .question-intro p {
+            color: var(--muted);
+            max-width: 720px;
+            line-height: 1.8;
+        }
+
+
+        /* =========================================================
+           QUESTION WORKSPACE
+        ========================================================== */
+
+        .question-workspace {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            gap: 28px;
+            align-items: start;
+        }
+
+
+        /* =========================================================
+           CATEGORY NAVIGATION
+        ========================================================== */
+
+        .question-sidebar {
+            position: sticky;
+            top: 25px;
+        }
+
+        .question-sidebar-label {
+            display: block;
+            font-size: .72rem;
+            letter-spacing: .14em;
+            opacity: .65;
+            margin-bottom: 14px;
+        }
+
+        .category-list {
+            display: grid;
+            gap: 7px;
+        }
+
+        .category-button {
+            width: 100%;
+            border: 1px solid transparent;
+            background: transparent;
+            color: inherit;
+            text-align: left;
+            padding: 11px 12px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: .2s ease;
+            font: inherit;
+        }
+
+        .category-button:hover {
+            background: rgba(255,255,255,.04);
+        }
+
+        .category-button.active {
+            border-color: rgba(255,255,255,.10);
+            background: rgba(255,255,255,.06);
+        }
+
+
+        /* =========================================================
+           QUESTION CARD
+        ========================================================== */
+
+        .question-card {
+            border: 1px solid rgba(255,255,255,.09);
+            border-radius: 22px;
+            padding: 34px;
+            background: rgba(255,255,255,.025);
+        }
+
+        .question-meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            margin-bottom: 28px;
+            flex-wrap: wrap;
+        }
+
+        .question-topic {
+            font-size: .72rem;
+            letter-spacing: .13em;
+            text-transform: uppercase;
+            opacity: .65;
+        }
+
+        .question-counter {
+            color: var(--muted);
+            font-size: .82rem;
+        }
+
+        .question-card h2 {
+            max-width: 780px;
+            font-size: clamp(1.65rem, 3vw, 2.45rem);
+            line-height: 1.2;
+            margin-bottom: 30px;
+        }
+
+
+        /* =========================================================
+           CONTEXT
+        ========================================================== */
+
+        .context-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 28px;
+        }
+
+        .field {
+            display: grid;
+            gap: 7px;
+        }
+
+        .field label {
+            font-size: .72rem;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            opacity: .65;
+        }
+
+        .field select,
+        .field input,
+        .answer-box,
+        .source-input {
+            width: 100%;
+            box-sizing: border-box;
+            border: 1px solid rgba(255,255,255,.10);
+            background: rgba(0,0,0,.16);
+            color: inherit;
+            border-radius: 11px;
+            padding: 13px 14px;
+            font: inherit;
+            outline: none;
+        }
+
+        .field select:focus,
+        .field input:focus,
+        .answer-box:focus,
+        .source-input:focus {
+            border-color: rgba(255,255,255,.25);
+        }
+
+
+        /* =========================================================
+           ANSWER
+        ========================================================== */
+
+        .answer-section {
+            margin-top: 30px;
+        }
+
+        .answer-section > label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: .72rem;
+            letter-spacing: .10em;
+            text-transform: uppercase;
+            opacity: .65;
+        }
+
+        .answer-box {
+            min-height: 180px;
+            resize: vertical;
+            line-height: 1.7;
+        }
+
+        .answer-hint {
+            color: var(--muted);
+            font-size: .83rem;
+            line-height: 1.6;
+            margin-top: 8px;
+        }
+
+
+        /* =========================================================
+           SOURCE / ORIGIN
+        ========================================================== */
+
+        .source-section {
+            margin-top: 28px;
+        }
+
+        .source-options {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .source-option {
+            position: relative;
+        }
+
+        .source-option input {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .source-option label {
+            display: block;
+            border: 1px solid rgba(255,255,255,.09);
+            border-radius: 11px;
+            padding: 13px;
+            cursor: pointer;
+            color: var(--muted);
+            transition: .2s ease;
+            font-size: .88rem;
+        }
+
+        .source-option input:checked + label {
+            border-color: rgba(255,255,255,.30);
+            background: rgba(255,255,255,.06);
+            color: inherit;
+        }
+
+
+        /* =========================================================
+           CONFIDENCE
+        ========================================================== */
+
+        .confidence-section {
+            margin-top: 28px;
+        }
+
+        .confidence-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 9px;
+            margin-top: 12px;
+        }
+
+        .confidence-option {
+            position: relative;
+        }
+
+        .confidence-option input {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .confidence-option label {
+            display: block;
+            padding: 10px 13px;
+            border: 1px solid rgba(255,255,255,.09);
+            border-radius: 999px;
+            cursor: pointer;
+            color: var(--muted);
+            font-size: .84rem;
+        }
+
+        .confidence-option input:checked + label {
+            color: inherit;
+            background: rgba(255,255,255,.07);
+            border-color: rgba(255,255,255,.30);
+        }
+
+
+        /* =========================================================
+           ACTIONS
+        ========================================================== */
+
+        .question-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-top: 32px;
+            padding-top: 25px;
+            border-top: 1px solid rgba(255,255,255,.07);
+        }
+
+        .question-actions-right {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .secondary-button {
+            border: 1px solid rgba(255,255,255,.12);
+            background: transparent;
+            color: inherit;
+            border-radius: 10px;
+            padding: 12px 16px;
+            cursor: pointer;
+            font: inherit;
+        }
+
+        .secondary-button:hover {
+            background: rgba(255,255,255,.05);
+        }
+
+
+        /* =========================================================
+           KNOWLEDGE NOTICE
+        ========================================================== */
+
+        .knowledge-notice {
+            margin-top: 25px;
+            padding: 18px 20px;
+            border-left: 2px solid currentColor;
+            background: rgba(255,255,255,.025);
+            color: var(--muted);
+            line-height: 1.7;
+            font-size: .88rem;
+        }
+
+
+        /* =========================================================
+           SUCCESS STATE
+        ========================================================== */
+
+        .success-state {
+            display: none;
+            text-align: center;
+            padding: 65px 25px;
+        }
+
+        .success-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .success-state h2 {
+            margin-bottom: 15px;
+        }
+
+        .success-state p {
+            color: var(--muted);
+            max-width: 580px;
+            margin: 0 auto 28px;
+            line-height: 1.8;
+        }
+
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================== */
+
+        @media (max-width: 850px) {
+
+            .question-workspace {
+                grid-template-columns: 1fr;
+            }
+
+            .question-sidebar {
+                position: static;
+            }
+
+            .category-list {
+                display: flex;
+                overflow-x: auto;
+                padding-bottom: 8px;
+            }
+
+            .category-button {
+                width: auto;
+                min-width: max-content;
+            }
+
+            .context-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .source-options {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .question-card {
+                padding: 22px;
+                border-radius: 17px;
+            }
+
+            .question-actions {
+                align-items: stretch;
+                flex-direction: column;
+            }
+
+            .question-actions-right {
+                width: 100%;
+            }
+
+            .question-actions-right button,
+            .question-actions-right a {
+                flex: 1;
+                text-align: center;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<main style="margin-left:0">
+
+
+    <!-- =========================================================
+         HEADER
+    ========================================================== -->
+
+    <header>
+
+        <a
+            href="index.html"
+            aria-label="Back to AfriVerse"
+        >
+            ←
+        </a>
+
+        <b>
+            AfriVerse
+        </b>
+
+        <span class="avatar">
+            AV
+        </span>
+
+    </header>
+
+
+    <!-- =========================================================
+         PAGE
+    ========================================================== -->
+
+    <div class="app question-page">
+
+
+        <!-- =====================================================
+             INTRO
+        ====================================================== -->
+
+        <section class="question-intro">
+
+            <label>
+                KNOWLEDGE CONTRIBUTION
+            </label>
+
+            <h1>
+                Share what
+                <em>you know.</em>
+            </h1>
+
+            <p>
+                Some of the most valuable knowledge in Africa lives
+                in people, families, communities, workshops, farms,
+                markets and everyday experience.
+            </p>
+
+            <p>
+                AfriVerse asks questions designed to bring that
+                knowledge forward—so it can be understood, contextualized,
+                validated and made useful to others.
+            </p>
+
+        </section>
+
+
+        <!-- =====================================================
+             WORKSPACE
+        ====================================================== -->
+
+        <section class="question-workspace">
+
+
+            <!-- =================================================
+                 CATEGORY SIDEBAR
+            ================================================== -->
+
+            <aside class="question-sidebar">
+
+                <span class="question-sidebar-label">
+                    EXPLORE TOPICS
+                </span>
+
+                <div
+                    class="category-list"
+                    id="categoryList"
+                ></div>
+
+            </aside>
+
+
+            <!-- =================================================
+                 QUESTION AREA
+            ================================================== -->
+
+            <div>
+
+
+                <!-- =============================================
+                     QUESTION CARD
+                ============================================== -->
+
+                <div
+                    class="question-card"
+                    id="questionCard"
+                >
+
+                    <div class="question-meta">
+
+                        <span
+                            class="question-topic"
+                            id="questionTopic"
+                        >
+                            WATER & SANITATION
+                        </span>
+
+                        <span
+                            class="question-counter"
+                            id="questionCounter"
+                        >
+                            Question 1 of 12
+                        </span>
+
+                    </div>
+
+
+                    <h2
+                        id="questionText"
+                    >
+                        How do you collect and store rainwater during
+                        the rainy season?
+                    </h2>
+
+
+                    <!-- =========================================
+                         CONTEXT
+                    ========================================== -->
+
+                    <div class="context-grid">
+
+                        <div class="field">
+
+                            <label for="country">
+                                Country
+                            </label>
+
+                            <select id="country">
+
+                                <option value="">
+                                    Select country
+                                </option>
+
+                                <option>
+                                    Nigeria
+                                </option>
+
+                                <option>
+                                    Ghana
+                                </option>
+
+                                <option>
+                                    Kenya
+                                </option>
+
+                                <option>
+                                    Uganda
+                                </option>
+
+                                <option>
+                                    Tanzania
+                                </option>
+
+                                <option>
+                                    Rwanda
+                                </option>
+
+                                <option>
+                                    South Africa
+                                </option>
+
+                                <option>
+                                    Senegal
+                                </option>
+
+                                <option>
+                                    Cameroon
+                                </option>
+
+                                <option>
+                                    Ethiopia
+                                </option>
+
+                                <option>
+                                    Other African country
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="field">
+
+                            <label for="region">
+                                Region / City
+                            </label>
+
+                            <input
+                                id="region"
+                                type="text"
+                                placeholder="e.g. Lagos, Kano, Accra"
+                            >
+
+                        </div>
+
+
+                        <div class="field">
+
+                            <label for="language">
+                                Language
+                            </label>
+
+                            <select id="language">
+
+                                <option value="">
+                                    Select language
+                                </option>
+
+                                <option>
+                                    English
+                                </option>
+
+                                <option>
+                                    French
+                                </option>
+
+                                <option>
+                                    Portuguese
+                                </option>
+
+                                <option>
+                                    Hausa
+                                </option>
+
+                                <option>
+                                    Yoruba
+                                </option>
+
+                                <option>
+                                    Igbo
+                                </option>
+
+                                <option>
+                                    Swahili
+                                </option>
+
+                                <option>
+                                    Other
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =========================================
+                         ANSWER
+                    ========================================== -->
+
+                    <div class="answer-section">
+
+                        <label for="answer">
+                            Your experience
+                        </label>
+
+                        <textarea
+                            class="answer-box"
+                            id="answer"
+                            placeholder="Tell us what you know. Write naturally, as if you were explaining it to someone who has never experienced it before."
+                        ></textarea>
+
+                        <p class="answer-hint">
+                            You don't need to sound formal. Explain what
+                            people actually do, what you have observed,
+                            what works, and anything someone else should
+                            know.
+                        </p>
+
+                    </div>
+
+
+                    <!-- =========================================
+                         KNOWLEDGE SOURCE
+                    ========================================== -->
+
+                    <div class="source-section">
+
+                        <label>
+                            Where does this knowledge come from?
+                        </label>
+
+                        <div class="source-options">
+
+                            <div class="source-option">
+
+                                <input
+                                    type="radio"
+                                    name="source"
+                                    id="source-experience"
+                                    value="Personal experience"
+                                >
+
+                                <label for="source-experience">
+                                    Personal experience
+                                </label>
+
+                            </div>
+
+
+                            <div class="source-option">
+
+                                <input
+                                    type="radio"
+                                    name="source"
+                                    id="source-family"
+                                    value="Family or elders"
+                                >
+
+                                <label for="source-family">
+                                    Family / elders
+                                </label>
+
+                            </div>
+
+
+                            <div class="source-option">
+
+                                <input
+                                    type="radio"
+                                    name="source"
+                                    id="source-community"
+                                    value="Community"
+                                >
+
+                                <label for="source-community">
+                                    Community
+                                </label>
+
+                            </div>
+
+
+                            <div class="source-option">
+
+                                <input
+                                    type="radio"
+                                    name="source"
+                                    id="source-work"
+                                    value="Work or profession"
+                                >
+
+                                <label for="source-work">
+                                    Work / profession
+                                </label>
+
+                            </div>
+
+
+                            <div class="source-option">
+
+                                <input
+                                    type="radio"
+                                    name="source"
+                                    id="source-education"
+                                    value="School or training"
+                                >
+
+                                <label for="source-education">
+                                    School / training
+                                </label>
+
+                            </div>
+
+
+                            <div class="source-option">
+
+                                <input
+                                    type="radio"
+                                    name="source"
+                                    id="source-other"
+                                    value="Other"
+                                >
+
+                                <label for="source-other">
+                                    Other
+                                </label>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =========================================
+                         CONFIDENCE
+                    ========================================== -->
+
+                    <div class="confidence-section">
+
+                        <label>
+                            How confident are you about this?
+                        </label>
+
+                        <div class="confidence-options">
+
+                            <div class="confidence-option">
+
+                                <input
+                                    type="radio"
+                                    name="confidence"
+                                    id="confidence-high"
+                                    value="High"
+                                >
+
+                                <label for="confidence-high">
+                                    Very confident
+                                </label>
+
+                            </div>
+
+
+                            <div class="confidence-option">
+
+                                <input
+                                    type="radio"
+                                    name="confidence"
+                                    id="confidence-medium"
+                                    value="Medium"
+                                >
+
+                                <label for="confidence-medium">
+                                    Somewhat confident
+                                </label>
+
+                            </div>
+
+
+                            <div class="confidence-option">
+
+                                <input
+                                    type="radio"
+                                    name="confidence"
+                                    id="confidence-low"
+                                    value="Low"
+                                >
+
+                                <label for="confidence-low">
+                                    Not completely sure
+                                </label>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =========================================
+                         NOTICE
+                    ========================================== -->
+
+                    <div class="knowledge-notice">
+
+                        AfriVerse treats contributions as contextual
+                        knowledge. Your experience may be combined with
+                        other contributions and sources. Contributions
+                        can be reviewed, challenged or validated before
+                        being presented as trusted knowledge.
+
+                    </div>
+
+
+                    <!-- =========================================
+                         ACTIONS
+                    ========================================== -->
+
+                    <div class="question-actions">
+
+                        <button
+                            class="secondary-button"
+                            type="button"
+                            id="previousButton"
+                        >
+                            ← Previous
+                        </button>
+
+                        <div class="question-actions-right">
+
+                            <button
+                                class="secondary-button"
+                                type="button"
+                                id="skipButton"
+                            >
+                                Skip
+                            </button>
+
+                            <button
+                                class="primary"
+                                type="button"
+                                id="nextButton"
+                            >
+                                Next question →
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =============================================
+                     SUCCESS
+                ============================================== -->
+
+                <div
+                    class="question-card success-state"
+                    id="successState"
+                >
+
+                    <div class="success-icon">
+                        ✦
+                    </div>
+
+                    <h2>
+                        Knowledge contributed.
+                    </h2>
+
+                    <p>
+                        Thank you for sharing what you know.
+                        Your contribution represents one piece of
+                        the larger knowledge layer AfriVerse is building.
+                    </p>
+
+                    <p>
+                        In the full AfriVerse system, contributions like
+                        this can be contextualized, connected with other
+                        knowledge, reviewed and made discoverable to people
+                        and intelligent applications.
+                    </p>
+
+                    <button
+                        class="primary"
+                        type="button"
+                        id="startAgainButton"
+                    >
+                        Share another experience →
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </div>
+
+</main>
+
+
+<!-- =============================================================
+     QUESTION ENGINE
+============================================================= -->
+
+<script>
+
+const questionBank = {
+
+    "Water & Sanitation": [
+
+        "How do you collect and store rainwater during the rainy season?",
+
+        "What do you do to keep stored rainwater clean and safe to use?",
+
+        "If you don't have chlorine or a water filter, how do people in your community make drinking water safer?",
+
+        "How do you maintain a borehole or hand-dug well during the dry season?",
+
+        "How can you tell if a place is likely to have water before digging a well?",
+
+        "How do you prevent mosquitoes from breeding in water storage containers?",
+
+        "What do people do when their water tastes salty or has a strong iron taste?",
+
+        "How do you protect your water source when flooding occurs?",
+
+        "What natural signs do elders look for when deciding where to dig a shallow well?",
+
+        "If the only available water is muddy river or surface water, how do people make it clearer before treating it?",
+
+        "What traditional containers or low-cost materials do households use to store rainwater and keep it cool?",
+
+        "When a hand pump or borehole stops working, what usually goes wrong and how do local repairers fix it?"
+
+    ],
+
+
+    "Health & First Aid": [
+
+        "What is the first thing people in your community do after a snake bite while getting medical help?",
+
+        "When a child develops a fever, what do families usually do first?",
+
+        "When someone suspects malaria, what do people usually do before they can get to a clinic?",
+
+        "How do people in your community deal with stomach problems or diarrhea while also seeking appropriate medical care?",
+
+        "How do people in your area prepare a simple rehydration drink when someone is losing a lot of fluid?",
+
+        "What helps people manage breathing discomfort during harmattan or very dusty weather?",
+
+        "What do you do immediately after a minor burn from cooking or a stove?",
+
+        "What does emotional distress look like in your community, and how do people usually support someone going through it?",
+
+        "How do people care for minor wounds or skin problems in a hot, humid or dusty environment?",
+
+        "How do you know when a health problem has become serious enough to require a clinic or hospital?",
+
+        "When someone has severe diarrhea and medical help isn't nearby, what do families do to prevent dehydration while seeking care?",
+
+        "Are there traditional plants, leaves or other methods people use to keep mosquitoes away at night? How are they used?",
+
+        "What safe first-aid steps do people take for a minor burn or cut before getting professional medical help?",
+
+        "During extreme heat, how do families keep babies and older people cool and prevent heat exhaustion?"
+
+    ],
+
+
+    "Agriculture & Livestock": [
+
+        "Which crops or crop combinations grow best in your soil and climate?",
+
+        "How do farmers in your area deal with crop pests such as fall armyworm without relying entirely on chemical pesticides?",
+
+        "How do you store harvested grain when you don't have access to a modern silo?",
+
+        "How do farmers keep their soil fertile using manure, compost or crop residue?",
+
+        "What farming methods work best when rainfall is unpredictable?",
+
+        "How do you choose good seeds from your harvest and store them for the next planting season?",
+
+        "What livestock disease or health problem do farmers in your area deal with most often?",
+
+        "How do you decide whether to sell an animal or keep it for longer?",
+
+        "Are there traditional farming methods such as Zaï pits, mounds or other soil techniques that help crops grow with little rainfall?",
+
+        "How do farmers protect stored grain, yam or cassava from insects, rodents and mold without expensive chemicals?",
+
+        "What homemade or plant-based mixtures do local farmers use to protect vegetables from pests?",
+
+        "What are the first signs that a goat, cow or other livestock animal is becoming sick?"
+
+    ],
+
+
+    "Mechanics & Repair": [
+
+        "How do you repair a punctured bicycle tire using materials you can easily find locally?",
+
+        "When a motorcycle breaks down on the road, what's the first thing you usually check or try to fix?",
+
+        "How do you keep a solar lantern or small solar system working when replacement parts are expensive?",
+
+        "How do people repair leaking thatch, zinc or tiled roofs using locally available materials?",
+
+        "How do local farmers repair or improvise tools such as hoes, cutlasses and ploughs?",
+
+        "What do people do to keep their phones and chargers working despite unstable electricity?",
+
+        "If you get a bicycle or motorcycle puncture and have no patch kit, how can you make a temporary repair?",
+
+        "How do drivers adapt vehicles such as Danfos, Matatus, tuk-tuks or bush taxis when roads become flooded or badly damaged?",
+
+        "How do small shops set up simple 12V solar and battery systems for lighting and phone charging?",
+
+        "How do local blacksmiths sharpen or reshape farming tools so they can handle hard or dry soil?"
+
+    ],
+
+
+    "Energy & Cooking": [
+
+        "What have you done to make your cooking stove use less fuel?",
+
+        "Have you tried making or using an alternative fuel or fuel briquette? How did you do it?",
+
+        "If you use biogas or a small biodigester, what does it take to keep the system working?",
+
+        "What is your go-to solution for lighting or charging your phone during a long power outage?"
+
+    ],
+
+
+    "Housing & Environment": [
+
+        "How do you keep your home cool during extreme heat without relying on electricity?",
+
+        "What has actually worked for you when trying to prevent erosion or flooding around your home or farmland?",
+
+        "How do households deal with plastic and organic waste when there is no regular waste collection?",
+
+        "When your community faces drought, what strategies have helped people get through it?"
+
+    ],
+
+
+    "Family & Community": [
+
+        "What do you or your family do to relax and deal with everyday stress?",
+
+        "How do communities help children keep learning when schools are far away or have limited resources?",
+
+        "What advice would you give someone young who wants to start a small business with very little money?",
+
+        "How do people in your community settle disagreements over land or water without things becoming hostile?",
+
+        "When something serious goes wrong, who do people usually turn to first for help?",
+
+        "When someone experiences a major loss or is going through severe grief, how does the community support them?",
+
+        "What local activities, sports or social groups help young people deal with stress and difficult economic conditions?",
+
+        "How do market associations, elders or community leaders help settle disputes peacefully?"
+
+    ],
+
+
+    "Business & Finance": [
+
+        "How do you preserve or process farm produce so you can sell it at a better price?",
+
+        "How does your local savings group or informal lending circle work, and what has your experience been like?",
+
+        "What small businesses or skills are actually making money in your area right now?",
+
+        "What makes it difficult for people in your community to access banks, loans or formal credit?"
+
+    ],
+
+
+    "Language & Culture": [
+
+        "What local proverb best describes how your community deals with a difficult modern problem?",
+
+        "How do you explain health, farming or other important advice in your local language so people really understand it?",
+
+        "Are there words in your language for illnesses, weather, tools or experiences that don't have a direct English translation? What do they mean?",
+
+        "What local phrase means something like 'stay strong in hard times', and what does it really mean to people in your community?",
+
+        "How do people naturally mix English, French, Portuguese or another official language with their local language in everyday conversation?",
+
+        "How should you greet an elder or community leader when asking them for help, and what gestures show proper respect?"
+
+    ],
+
+
+    "Mobility & Transport": [
+
+        "How do you get your goods to market when the roads are bad or difficult to use during certain seasons?",
+
+        "What do people do when their usual bus, motorcycle, canoe or other form of transport isn't available?"
+
+    ],
+
+
+    "Disaster & Resilience": [
+
+        "If flooding, conflict or another emergency forces your household to leave quickly, what is your plan?",
+
+        "What have you learned about staying in contact with family when the phone network or electricity goes down?",
+
+        "When your community has welcomed displaced people, what has helped everyone adjust and live together peacefully?"
+
+    ],
+
+
+    "Gender & Opportunity": [
+
+        "What challenges do women and girls in your community face around water, health or personal safety, and what has helped?",
+
+        "What has helped women gain access to income, land or credit when formal systems make it difficult?"
+
+    ],
+
+
+    "Digital Literacy": [
+
+        "How did you learn to use mobile money, and what was confusing when you first started?",
+
+        "What do you do to protect yourself from phone scams, online fraud and financial scams?",
+
+        "What would make an app like AfriVerse easier to use for someone with a basic phone or very little data?"
+
+    ],
+
+
+    "Elder & Indigenous Knowledge": [
+
+        "What is something your grandparents' generation knew how to do that fewer people know today?",
+
+        "What signs from nature—such as animals, plants, stars or weather—did elders use to predict seasonal changes, and do people still rely on them today?"
+
+    ],
+
+
+    "General & Emerging": [
+
+        "What's a problem in your everyday life that people from outside your community often misunderstand?",
+
+        "What's a simple, low-cost fix or workaround that has made a real difference in your home?",
+
+        "What government or NGO program has genuinely helped your community, and what made it successful?",
+
+        "What information do you wish you could easily find in your own language?",
+
+        "How has your local environment changed over the past 5–10 years, and how have people adapted?",
+
+        "What's one everyday problem in your community that you think outsiders rarely understand properly?",
+
+        "What's a simple local invention, hack or workaround that has made life easier for people around you?"
+
+    ]
+
+};
+
+
+/* =============================================================
+   STATE
+============================================================= */
+
+const categories = Object.keys(questionBank);
+
+let currentCategory = categories[0];
+
+let currentQuestionIndex = 0;
+
+
+/* =============================================================
+   DOM
+============================================================= */
+
+const categoryList =
+    document.getElementById("categoryList");
+
+const questionTopic =
+    document.getElementById("questionTopic");
+
+const questionText =
+    document.getElementById("questionText");
+
+const questionCounter =
+    document.getElementById("questionCounter");
+
+const previousButton =
+    document.getElementById("previousButton");
+
+const nextButton =
+    document.getElementById("nextButton");
+
+const skipButton =
+    document.getElementById("skipButton");
+
+const questionCard =
+    document.getElementById("questionCard");
+
+const successState =
+    document.getElementById("successState");
+
+const startAgainButton =
+    document.getElementById("startAgainButton");
+
+const answer =
+    document.getElementById("answer");
+
+
+/* =============================================================
+   CATEGORY NAVIGATION
+============================================================= */
+
+function renderCategories() {
+
+    categoryList.innerHTML = "";
+
+    categories.forEach(category => {
+
+        const button =
+            document.createElement("button");
+
+        button.type = "button";
+
+        button.className =
+            "category-button";
+
+        if (category === currentCategory) {
+            button.classList.add("active");
+        }
+
+        button.textContent =
+            category;
+
+        button.addEventListener(
+            "click",
+            () => {
+
+                currentCategory = category;
+
+                currentQuestionIndex = 0;
+
+                renderCategories();
+
+                renderQuestion();
+
+            }
+        );
+
+        categoryList.appendChild(button);
+
+    });
+
+}
+
+
+/* =============================================================
+   QUESTION RENDERING
+============================================================= */
+
+function renderQuestion() {
+
+    const questions =
+        questionBank[currentCategory];
+
+    const total =
+        questions.length;
+
+    const question =
+        questions[currentQuestionIndex];
+
+    questionTopic.textContent =
+        currentCategory.toUpperCase();
+
+    questionText.textContent =
+        question;
+
+    questionCounter.textContent =
+        `Question ${currentQuestionIndex + 1} of ${total}`;
+
+    previousButton.disabled =
+        currentQuestionIndex === 0;
+
+    if (currentQuestionIndex === total - 1) {
+
+        nextButton.textContent =
+            "Submit contribution →";
+
+    } else {
+
+        nextButton.textContent =
+            "Next question →";
+
+    }
+
+}
+
+
+/* =============================================================
+   NEXT
+============================================================= */
+
+nextButton.addEventListener(
+    "click",
+    () => {
+
+        const questions =
+            questionBank[currentCategory];
+
+        if (
+            currentQuestionIndex <
+            questions.length - 1
+        ) {
+
+            currentQuestionIndex++;
+
+            clearAnswer();
+
+            renderQuestion();
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+
+            return;
+
+        }
+
+        showSuccess();
+
+    }
+);
+
+
+/* =============================================================
+   PREVIOUS
+============================================================= */
+
+previousButton.addEventListener(
+    "click",
+    () => {
+
+        if (currentQuestionIndex > 0) {
+
+            currentQuestionIndex--;
+
+            renderQuestion();
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+
+        }
+
+    }
+);
+
+
+/* =============================================================
+   SKIP
+============================================================= */
+
+skipButton.addEventListener(
+    "click",
+    () => {
+
+        const questions =
+            questionBank[currentCategory];
+
+        if (
+            currentQuestionIndex <
+            questions.length - 1
+        ) {
+
+            currentQuestionIndex++;
+
+        } else {
+
+            currentQuestionIndex = 0;
+
+        }
+
+        clearAnswer();
+
+        renderQuestion();
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    }
+);
+
+
+/* =============================================================
+   CLEAR ANSWER
+============================================================= */
+
+function clearAnswer() {
+
+    answer.value = "";
+
+    document
+        .querySelectorAll(
+            'input[name="source"]'
+        )
+        .forEach(
+            input => input.checked = false
+        );
+
+    document
+        .querySelectorAll(
+            'input[name="confidence"]'
+        )
+        .forEach(
+            input => input.checked = false
+        );
+
+}
+
+
+/* =============================================================
+   SUCCESS
+============================================================= */
+
+function showSuccess() {
+
+    questionCard.style.display =
+        "none";
+
+    successState.style.display =
+        "block";
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+}
+
+
+/* =============================================================
+   START AGAIN
+============================================================= */
+
+startAgainButton.addEventListener(
+    "click",
+    () => {
+
+        currentCategory =
+            categories[0];
+
+        currentQuestionIndex =
+            0;
+
+        clearAnswer();
+
+        successState.style.display =
+            "none";
+
+        questionCard.style.display =
+            "block";
+
+        renderCategories();
+
+        renderQuestion();
+
+    }
+);
+
+
+/* =============================================================
+   INITIALIZE
+============================================================= */
+
+renderCategories();
+
+renderQuestion();
+
+</script>
+
+
+</body>
+
+</html>
