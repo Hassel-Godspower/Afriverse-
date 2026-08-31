@@ -3465,7 +3465,7 @@
 }
 
 /* =========================================================
-   MOBILE NAVIGATION ICON ANIMATION
+   AFRIVERSE MOBILE NAV ICON ANIMATION
 ========================================================== */
 
 .bottom .nav-icon {
@@ -3477,79 +3477,75 @@
 
     transform-origin: center;
 
-    animation:
-        navIconPulse 3s ease-in-out infinite,
-        navIconRotate 8s ease-in-out infinite;
+    animation: navIconMotion 4s ease-in-out infinite;
 
 }
 
 
 /* =========================================================
-   PULSE
+   PULSE + 360° ROTATION
 ========================================================== */
 
-@keyframes navIconPulse {
-
-    0%,
-    100% {
-        transform: scale(1);
-    }
-
-    50% {
-        transform: scale(1.12);
-    }
-
-}
-
-
-/* =========================================================
-   ROTATION
-========================================================== */
-
-@keyframes navIconRotate {
+@keyframes navIconMotion {
 
     0% {
-        rotate: 0deg;
+        transform: scale(1) rotate(0deg);
+    }
+
+    15% {
+        transform: scale(1.12) rotate(45deg);
+    }
+
+    30% {
+        transform: scale(1) rotate(90deg);
     }
 
     45% {
-        rotate: 0deg;
+        transform: scale(1.08) rotate(180deg);
+    }
+
+    60% {
+        transform: scale(1) rotate(270deg);
+    }
+
+    75% {
+        transform: scale(1.12) rotate(360deg);
     }
 
     100% {
-        rotate: 360deg;
+        transform: scale(1) rotate(360deg);
     }
 
 }
 
 
 /* =========================================================
-   SLIGHTLY OFFSET EACH ICON
+   STAGGER
 ========================================================== */
 
 .bottom a:nth-child(1) .nav-icon {
-    animation-delay: 0s, 0s;
+    animation-delay: 0s;
 }
 
 .bottom a:nth-child(2) .nav-icon {
-    animation-delay: 0.4s, 0.8s;
+    animation-delay: 0.35s;
 }
 
 .bottom a:nth-child(3) .nav-icon {
-    animation-delay: 0.8s, 1.6s;
+    animation-delay: 0.7s;
 }
 
 .bottom a:nth-child(4) .nav-icon {
-    animation-delay: 1.2s, 2.4s;
+    animation-delay: 1.05s;
 }
 
 .bottom a:nth-child(5) .nav-icon {
-    animation-delay: 1.6s, 3.2s;
+    animation-delay: 1.4s;
 }
 
 
 /* =========================================================
-   ACCESSIBILITY
+   REDUCED MOTION
 ========================================================== */
 
 @media (prefers-reduced-motion: reduce) {
