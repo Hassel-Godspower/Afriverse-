@@ -17,7 +17,7 @@ const menuButton =
     document.getElementById("menu");
 
 const sidebar =
-    document.getElementById("sidebar");
+    document.querySelector(".side");
 
 
 if (menuButton && sidebar) {
@@ -33,21 +33,15 @@ if (menuButton && sidebar) {
 
             event.stopPropagation();
 
-            const isOpen =
-                sidebar.classList.toggle("open");
-
-            menuButton.setAttribute(
-                "aria-expanded",
-                isOpen
-            );
+            sidebar.classList.toggle("open");
 
         }
     );
 
 
     /* -----------------------------------------------------
-       PREVENT OUTSIDE CLICK WHEN TOUCHING SIDEBAR
-       ----------------------------------------------------- */
+       KEEP MENU OPEN WHEN TOUCHING INSIDE IT
+    ----------------------------------------------------- */
 
     sidebar.addEventListener(
         "click",
@@ -60,75 +54,43 @@ if (menuButton && sidebar) {
 
 
     /* -----------------------------------------------------
-       CLOSE WHEN CLICKING OUTSIDE
-       ----------------------------------------------------- */
+       CLOSE WHEN TOUCHING OUTSIDE
+    ----------------------------------------------------- */
 
     document.addEventListener(
         "click",
         (event) => {
 
             if (
-                !sidebar.classList.contains("open")
+                sidebar.classList.contains("open") &&
+                !sidebar.contains(event.target) &&
+                event.target !== menuButton
             ) {
 
-                return;
+                sidebar.classList.remove("open");
 
             }
-
-
-            if (
-                sidebar.contains(event.target) ||
-                event.target === menuButton
-            ) {
-
-                return;
-
-            }
-
-
-            sidebar.classList.remove("open");
-
-            menuButton.setAttribute(
-                "aria-expanded",
-                "false"
-            );
 
         }
     );
 
 
     /* -----------------------------------------------------
-       ESCAPE KEY
-       ----------------------------------------------------- */
+       CLOSE WITH ESCAPE
+    ----------------------------------------------------- */
 
     document.addEventListener(
         "keydown",
         (event) => {
 
             if (
-                event.key !== "Escape"
+                event.key === "Escape" &&
+                sidebar.classList.contains("open")
             ) {
 
-                return;
+                sidebar.classList.remove("open");
 
             }
-
-
-            if (
-                !sidebar.classList.contains("open")
-            ) {
-
-                return;
-
-            }
-
-
-            sidebar.classList.remove("open");
-
-            menuButton.setAttribute(
-                "aria-expanded",
-                "false"
-            );
 
         }
     );
