@@ -3538,7 +3538,7 @@
     animation-delay: 0s;
 }
 
-/* Ask */
+ /* Ask */
 .bottom a:nth-child(2) .nav-icon {
     animation-delay: 2s;
 }
@@ -3757,5 +3757,265 @@ details[open] .nav-chevron {
 
         font-size: .9rem;
     }
+
+  /* =========================================================
+   AFRIVERSE MOBILE SIDEBAR
+   FULL HEIGHT + INDEPENDENT SCROLL
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .side {
+        display: none;
+    }
+
+
+    /* ---------------------------------------------------------
+       OPEN SIDEBAR
+    --------------------------------------------------------- */
+
+    .side.open {
+
+        display: flex;
+        flex-direction: column;
+
+        position: fixed;
+
+        top: 0;
+        left: 0;
+        bottom: 0;
+
+        width: min(320px, 82vw);
+
+        height: 100dvh;
+        max-height: 100dvh;
+
+        box-sizing: border-box;
+
+        overflow-y: auto;
+        overflow-x: hidden;
+
+        -webkit-overflow-scrolling: touch;
+
+        overscroll-behavior-y: contain;
+
+        touch-action: pan-y;
+
+        padding:
+            24px
+            20px
+            calc(90px + env(safe-area-inset-bottom));
+
+        background: #090b09;
+
+        border-right:
+            1px solid var(--line);
+
+        box-shadow:
+            20px 0 80px rgba(0,0,0,.55);
+
+        z-index: 100;
+    }
+
+
+    /* ---------------------------------------------------------
+       SIDEBAR SCROLLBAR
+    --------------------------------------------------------- */
+
+    .side.open::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    .side.open::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .side.open::-webkit-scrollbar-thumb {
+        background: rgba(255,255,255,.18);
+        border-radius: 999px;
+    }
+
+
+    /* Firefox */
+
+    .side.open {
+        scrollbar-width: thin;
+        scrollbar-color:
+            rgba(255,255,255,.18)
+            transparent;
+    }
+
+
+    /* ---------------------------------------------------------
+       KEEP MAIN PAGE BEHIND SIDEBAR
+    --------------------------------------------------------- */
+
+    .side.open ~ main {
+        margin-left: 0;
+        filter: none;
+    }
+
+
+    main {
+        margin-left: 0;
+    }
+
+
+    /* ---------------------------------------------------------
+       MOBILE HEADER
+    --------------------------------------------------------- */
+
+    header b {
+        display: block;
+    }
+
+
+    #menu {
+        display: block;
+    }
+
+
+    .search {
+        display: none;
+    }
+
+
+    /* ---------------------------------------------------------
+       MOBILE CONTENT
+    --------------------------------------------------------- */
+
+    .hero {
+        grid-template-columns: 1fr;
+        padding:
+            65px
+            20px
+            45px;
+    }
+
+
+    .hero h1 {
+        font-size: 58px;
+    }
+
+
+    .orb {
+        width: 260px;
+        height: 260px;
+    }
+
+
+    .core {
+        width: 110px;
+        height: 110px;
+    }
+
+
+    .hero,
+    section {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+
+    .head {
+        display: block;
+    }
+
+
+    .three,
+    .cards {
+        grid-template-columns: 1fr;
+    }
+
+
+    /* ---------------------------------------------------------
+       MOBILE BOTTOM NAVIGATION
+    --------------------------------------------------------- */
+
+    .bottom {
+
+        display: flex;
+
+        position: fixed;
+
+        bottom: 0;
+        left: 0;
+        right: 0;
+
+        height: 66px;
+
+        padding-bottom:
+            env(safe-area-inset-bottom);
+
+        background:
+            rgba(9,11,9,.96);
+
+        border-top:
+            1px solid var(--line);
+
+        z-index: 30;
+
+        justify-content:
+            space-around;
+    }
+
+
+    .bottom a {
+        display: grid;
+        place-items: center;
+        align-content: center;
+        font-size: 18px;
+    }
+
+
+    .bottom small {
+        font-size: 9px;
+        color: var(--muted);
+    }
+
+
+    /* ---------------------------------------------------------
+       APP
+    --------------------------------------------------------- */
+
+    .app {
+        padding:
+            25px
+            16px
+            100px;
+    }
+
+
+    .app h1 {
+        font-size: 36px;
+    }
+
+}
+/* =========================================================
+   SIDEBAR INNER CONTENT
+========================================================= */
+
+.side-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+
+    min-height: max-content;
+    width: 100%;
+} 
+
+@media (max-width: 900px) {
+
+    .side.open {
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .side-inner {
+        padding-bottom: 30px;
+    }
+
+}
+
 
 }
