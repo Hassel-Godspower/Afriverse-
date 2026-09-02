@@ -3573,22 +3573,101 @@
 
 /* =========================================================
    AFRIVERSE SIDEBAR NAVIGATION
+   DESKTOP + MOBILE
 ========================================================= */
 
-.side-nav {
-    display: grid;
-    gap: 4px;
+/* ---------------------------------------------------------
+   SIDEBAR — BASE
+--------------------------------------------------------- */
+
+.side {
+    box-sizing: border-box;
+
+    height: 100vh;
+    height: 100dvh;
+
+    max-height: 100vh;
+    max-height: 100dvh;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    -webkit-overflow-scrolling: touch;
+
+    overscroll-behavior-y: contain;
+
+    scrollbar-width: thin;
+    scrollbar-color:
+        rgba(255,255,255,.20)
+        transparent;
+}
+
+
+/* ---------------------------------------------------------
+   DESKTOP SIDEBAR SCROLLBAR
+--------------------------------------------------------- */
+
+.side::-webkit-scrollbar {
+    width: 5px;
+}
+
+.side::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.side::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,.20);
+
+    border-radius: 999px;
+}
+
+.side::-webkit-scrollbar-thumb:hover {
+    background: rgba(255,255,255,.35);
 }
 
 
 /* =========================================================
-   STANDARD NAVIGATION ITEM
+   SIDEBAR INNER CONTENT
+========================================================= */
+
+.side-inner {
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+
+    min-height: max-content;
+
+    box-sizing: border-box;
+
+    padding-bottom: 30px;
+}
+
+
+/* =========================================================
+   SIDEBAR NAVIGATION
+========================================================= */
+
+.side-nav {
+    display: grid;
+
+    gap: 4px;
+
+    width: 100%;
+}
+
+
+/* =========================================================
+   STANDARD NAVIGATION ITEMS
 ========================================================= */
 
 .side-nav > a,
 .side-nav summary {
+
     min-height: 44px;
+
     box-sizing: border-box;
+
     border-radius: 10px;
 
     display: flex;
@@ -3597,6 +3676,7 @@
     padding: 0 12px;
 
     color: inherit;
+
     text-decoration: none;
 
     cursor: pointer;
@@ -3607,11 +3687,15 @@
 }
 
 
+/* Hover */
+
 .side-nav > a:hover,
 .side-nav summary:hover {
     background: rgba(255,255,255,.04);
 }
 
+
+/* Active */
 
 .side-nav > a.active {
     background: rgba(255,255,255,.06);
@@ -3619,15 +3703,19 @@
 
 
 /* =========================================================
-   ICON
+   NAVIGATION ICON
 ========================================================= */
 
 .nav-icon {
+
     width: 28px;
+
     min-width: 28px;
 
     display: inline-flex;
+
     align-items: center;
+
     justify-content: flex-start;
 
     font-size: 1.05rem;
@@ -3645,19 +3733,25 @@
 }
 
 
+/* Remove default marker */
+
 .side-nav summary {
     list-style: none;
 }
-
 
 .side-nav summary::-webkit-details-marker {
     display: none;
 }
 
 
+/* Main navigation label */
+
 .nav-main {
+
     display: flex;
+
     align-items: center;
+
     min-width: 0;
 }
 
@@ -3667,6 +3761,7 @@
 ========================================================= */
 
 .nav-chevron {
+
     margin-left: auto;
 
     font-size: 1rem;
@@ -3679,8 +3774,10 @@
 }
 
 
-details[open] .nav-chevron {
+.side-nav details[open] .nav-chevron {
+
     transform: rotate(90deg);
+
     opacity: .75;
 }
 
@@ -3690,6 +3787,7 @@ details[open] .nav-chevron {
 ========================================================= */
 
 .sub-nav {
+
     display: grid;
 
     gap: 2px;
@@ -3706,6 +3804,7 @@ details[open] .nav-chevron {
 
 
 .sub-nav a {
+
     display: block;
 
     padding: 9px 12px;
@@ -3727,7 +3826,9 @@ details[open] .nav-chevron {
 
 
 .sub-nav a:hover {
-    background: rgba(255,255,255,.04);
+
+    background:
+        rgba(255,255,255,.04);
 
     color: inherit;
 }
@@ -3737,47 +3838,15 @@ details[open] .nav-chevron {
    MOBILE SIDEBAR
 ========================================================= */
 
-@media (max-width: 850px) {
-
-    .side-nav > a,
-    .side-nav summary {
-        min-height: 48px;
-    }
-
-
-    .sub-nav {
-        margin-left: 30px;
-        padding-left: 10px;
-    }
-
-
-    .sub-nav a {
-        padding:
-            11px 12px;
-
-        font-size: .9rem;
-    }
-
-  /* =========================================================
-   AFRIVERSE MOBILE SIDEBAR
-   FULL HEIGHT + INDEPENDENT SCROLL
-========================================================= */
-
 @media (max-width: 900px) {
 
+    /* -----------------------------------------------------
+       SIDEBAR CLOSED
+    ----------------------------------------------------- */
+
     .side {
+
         display: none;
-    }
-
-
-    /* ---------------------------------------------------------
-       OPEN SIDEBAR
-    --------------------------------------------------------- */
-
-    .side.open {
-
-        display: flex;
-        flex-direction: column;
 
         position: fixed;
 
@@ -3787,7 +3856,10 @@ details[open] .nav-chevron {
 
         width: min(320px, 82vw);
 
+        height: 100vh;
         height: 100dvh;
+
+        max-height: 100vh;
         max-height: 100dvh;
 
         box-sizing: border-box;
@@ -3804,7 +3876,7 @@ details[open] .nav-chevron {
         padding:
             24px
             20px
-            calc(90px + env(safe-area-inset-bottom));
+            calc(100px + env(safe-area-inset-bottom));
 
         background: #090b09;
 
@@ -3818,52 +3890,104 @@ details[open] .nav-chevron {
     }
 
 
-    /* ---------------------------------------------------------
-       SIDEBAR SCROLLBAR
-    --------------------------------------------------------- */
+    /* -----------------------------------------------------
+       SIDEBAR OPEN
+    ----------------------------------------------------- */
 
-    .side.open::-webkit-scrollbar {
+    .side.open {
+
+        display: flex;
+
+        flex-direction: column;
+    }
+
+
+    /* -----------------------------------------------------
+       MOBILE SIDEBAR SCROLLBAR
+    ----------------------------------------------------- */
+
+    .side::-webkit-scrollbar {
         width: 4px;
     }
 
-    .side.open::-webkit-scrollbar-track {
+    .side::-webkit-scrollbar-track {
         background: transparent;
     }
 
-    .side.open::-webkit-scrollbar-thumb {
-        background: rgba(255,255,255,.18);
+    .side::-webkit-scrollbar-thumb {
+
+        background:
+            rgba(255,255,255,.20);
+
         border-radius: 999px;
     }
 
+    .side::-webkit-scrollbar-thumb:hover {
 
-    /* Firefox */
+        background:
+            rgba(255,255,255,.35);
+    }
 
-    .side.open {
+
+    .side {
+
         scrollbar-width: thin;
+
         scrollbar-color:
-            rgba(255,255,255,.18)
+            rgba(255,255,255,.20)
             transparent;
     }
 
 
-    /* ---------------------------------------------------------
-       KEEP MAIN PAGE BEHIND SIDEBAR
-    --------------------------------------------------------- */
+    /* -----------------------------------------------------
+       SIDEBAR INNER CONTENT
+    ----------------------------------------------------- */
 
-    .side.open ~ main {
-        margin-left: 0;
-        filter: none;
+    .side-inner {
+
+        width: 100%;
+
+        min-height: max-content;
+
+        padding-bottom: 30px;
     }
 
 
-    main {
-        margin-left: 0;
+    /* -----------------------------------------------------
+       NAVIGATION ITEMS
+    ----------------------------------------------------- */
+
+    .side-nav > a,
+    .side-nav summary {
+
+        min-height: 48px;
     }
 
 
-    /* ---------------------------------------------------------
+    /* -----------------------------------------------------
+       SUB NAVIGATION
+    ----------------------------------------------------- */
+
+    .sub-nav {
+
+        margin-left: 30px;
+
+        padding-left: 10px;
+    }
+
+
+    .sub-nav a {
+
+        padding:
+            11px 12px;
+
+        font-size: .9rem;
+    }
+
+
+    /* =====================================================
        MOBILE HEADER
-    --------------------------------------------------------- */
+    ===================================================== */
 
     header b {
         display: block;
@@ -3880,12 +4004,14 @@ details[open] .nav-chevron {
     }
 
 
-    /* ---------------------------------------------------------
-       MOBILE CONTENT
-    --------------------------------------------------------- */
+    /* =====================================================
+       MOBILE HERO
+    ===================================================== */
 
     .hero {
+
         grid-template-columns: 1fr;
+
         padding:
             65px
             20px
@@ -3899,19 +4025,26 @@ details[open] .nav-chevron {
 
 
     .orb {
+
         width: 260px;
         height: 260px;
     }
 
 
     .core {
+
         width: 110px;
         height: 110px;
     }
 
 
+    /* =====================================================
+       MOBILE CONTENT
+    ===================================================== */
+
     .hero,
     section {
+
         padding-left: 20px;
         padding-right: 20px;
     }
@@ -3924,13 +4057,14 @@ details[open] .nav-chevron {
 
     .three,
     .cards {
+
         grid-template-columns: 1fr;
     }
 
 
-    /* ---------------------------------------------------------
+    /* =====================================================
        MOBILE BOTTOM NAVIGATION
-    --------------------------------------------------------- */
+    ===================================================== */
 
     .bottom {
 
@@ -3961,24 +4095,31 @@ details[open] .nav-chevron {
 
 
     .bottom a {
+
         display: grid;
+
         place-items: center;
+
         align-content: center;
+
         font-size: 18px;
     }
 
 
     .bottom small {
+
         font-size: 9px;
+
         color: var(--muted);
     }
 
 
-    /* ---------------------------------------------------------
-       APP
-    --------------------------------------------------------- */
+    /* =====================================================
+       MOBILE APP
+    ===================================================== */
 
     .app {
+
         padding:
             25px
             16px
@@ -3989,393 +4130,31 @@ details[open] .nav-chevron {
     .app h1 {
         font-size: 36px;
     }
-
-}
-/* =========================================================
-   SIDEBAR INNER CONTENT
-========================================================= */
-
-.side-inner {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-
-    min-height: max-content;
-    width: 100%;
-} 
-
-@media (max-width: 900px) {
-
-    .side.open {
-        overflow-y: auto;
-        overflow-x: hidden;
-    }
-
-    .side-inner {
-        padding-bottom: 30px;
-    }
-
-}
-
-/* =========================================================
-   AFRIVERSE SIDEBAR — DESKTOP + MOBILE SCROLL
-========================================================= */
-
-.side {
-    height: 100dvh;
-    max-height: 100dvh;
-
-    box-sizing: border-box;
-
-    overflow-y: auto;
-    overflow-x: hidden;
-
-    -webkit-overflow-scrolling: touch;
-
-    overscroll-behavior-y: contain;
-
-    scrollbar-width: thin;
-    scrollbar-color:
-        rgba(255,255,255,.18)
-        transparent;
 }
 
 
 /* =========================================================
-   SIDEBAR SCROLLBAR — CHROME / EDGE / SAFARI
+   VERY SMALL PHONES
 ========================================================= */
 
-.side::-webkit-scrollbar {
-    width: 5px;
-}
-
-.side::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-.side::-webkit-scrollbar-thumb {
-    background: rgba(255,255,255,.18);
-    border-radius: 999px;
-}
-
-.side::-webkit-scrollbar-thumb:hover {
-    background: rgba(255,255,255,.30);
-}
-
-
-/* =========================================================
-   SIDEBAR INNER CONTENT
-========================================================= */
-
-.side-inner {
-    display: flex;
-    flex-direction: column;
-
-    width: 100%;
-    min-height: max-content;
-
-    box-sizing: border-box;
-
-    padding-bottom: 30px;
-}
-
-/* =========================================================
-   AFRIVERSE SIDEBAR — DESKTOP + MOBILE SCROLL
-========================================================= */
-
-.side {
-    height: 100dvh;
-    max-height: 100dvh;
-
-    overflow-y: auto;
-    overflow-x: hidden;
-
-    box-sizing: border-box;
-
-    -webkit-overflow-scrolling: touch;
-    overscroll-behavior-y: contain;
-    touch-action: pan-y;
-
-    scrollbar-width: thin;
-    scrollbar-color:
-        rgba(255,255,255,.18)
-        transparent;
-}
-
-
-/* =========================================================
-   SIDEBAR SCROLLBAR — CHROME / EDGE / SAFARI
-========================================================= */
-
-.side::-webkit-scrollbar {
-    width: 5px;
-}
-
-.side::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-.side::-webkit-scrollbar-thumb {
-    background: rgba(255,255,255,.18);
-    border-radius: 999px;
-}
-
-.side::-webkit-scrollbar-thumb:hover {
-    background: rgba(255,255,255,.30);
-}
-
-
-/* =========================================================
-   SIDEBAR INNER CONTENT
-========================================================= */
-
-.side-inner {
-    display: flex;
-    flex-direction: column;
-
-    width: 100%;
-    min-height: max-content;
-
-    box-sizing: border-box;
-
-    padding-bottom: 30px;
-}
-/* =========================================================
-   MOBILE SIDEBAR
-========================================================= */
-
-@media (max-width: 900px) {
+@media (max-width: 380px) {
 
     .side {
-        display: none;
 
-        position: fixed;
+        width: min(300px, 88vw);
 
-        top: 0;
-        left: 0;
-        bottom: 0;
-
-        width: min(320px, 82vw);
-
-        height: 100dvh;
-        max-height: 100dvh;
-
-        box-sizing: border-box;
-
-        overflow-y: auto;
-        overflow-x: hidden;
-
-        -webkit-overflow-scrolling: touch;
-
-        overscroll-behavior-y: contain;
-
-        touch-action: pan-y;
-
-        padding:
-            24px
-            20px
-            calc(90px + env(safe-area-inset-bottom));
-
-        background: #090b09;
-
-        border-right:
-            1px solid var(--line);
-
-        box-shadow:
-            20px 0 80px rgba(0,0,0,.55);
-
-        z-index: 100;
-    }
-
-
-    /* =====================================================
-       OPEN SIDEBAR
-    ===================================================== */
-
-    .side.open {
-        display: flex;
-        flex-direction: column;
-    }
-
-
-    /* =====================================================
-       MOBILE SIDEBAR SCROLLBAR
-    ===================================================== */
-
-    .side::-webkit-scrollbar {
-        width: 4px;
-    }
-
-    .side::-webkit-scrollbar-track {
-        background: transparent;
-    }
-
-    .side::-webkit-scrollbar-thumb {
-        background: rgba(255,255,255,.18);
-        border-radius: 999px;
-    }
-
-    .side::-webkit-scrollbar-thumb:hover {
-        background: rgba(255,255,255,.30);
-    }
-
-
-    .side {
-        scrollbar-width: thin;
-        scrollbar-color:
-            rgba(255,255,255,.18)
-            transparent;
-    }
-
-
-    /* =====================================================
-       SIDEBAR CONTENT
-    ===================================================== */
-
-    .side-inner {
-        width: 100%;
-        min-height: max-content;
-
-        padding-bottom: 30px;
-    }
-
-
-    /* =====================================================
-       NAVIGATION
-    ===================================================== */
-
-    .side-nav > a,
-    .side-nav summary {
-        min-height: 48px;
+        padding-left: 16px;
+        padding-right: 16px;
     }
 
 
     .sub-nav {
-        margin-left: 30px;
-        padding-left: 10px;
+
+        margin-left: 24px;
+
+        padding-left: 8px;
     }
-
-
-    .sub-nav a {
-        padding: 11px 12px;
-        font-size: .9rem;
-    }
-
-
-    /* =====================================================
-       HEADER
-    ===================================================== */
-
-    header b {
-        display: block;
-    }
-
-    #menu {
-        display: block;
-    }
-
-    .search {
-        display: none;
-    }
-
-
-    /* =====================================================
-       MOBILE HERO
-    ===================================================== */
-
-    .hero {
-        grid-template-columns: 1fr;
-
-        padding:
-            65px
-            20px
-            45px;
-    }
-
-    .hero h1 {
-        font-size: 58px;
-    }
-
-
-    /* =====================================================
-       MOBILE CONTENT
-    ===================================================== */
-
-    .hero,
-    section {
-        padding-left: 20px;
-        padding-right: 20px;
-    }
-
-    .head {
-        display: block;
-    }
-
-    .three,
-    .cards {
-        grid-template-columns: 1fr;
-    }
-
-
-    /* =====================================================
-       MOBILE BOTTOM NAV
-    ===================================================== */
-
-    .bottom {
-        display: flex;
-
-        position: fixed;
-
-        bottom: 0;
-        left: 0;
-        right: 0;
-
-        height: 66px;
-
-        padding-bottom:
-            env(safe-area-inset-bottom);
-
-        background:
-            rgba(9,11,9,.96);
-
-        border-top:
-            1px solid var(--line);
-
-        z-index: 30;
-
-        justify-content: space-around;
-    }
-
-    .bottom a {
-        display: grid;
-        place-items: center;
-        align-content: center;
-
-        font-size: 18px;
-    }
-
-    .bottom small {
-        font-size: 9px;
-        color: var(--muted);
-    }
-
-
-    /* =====================================================
-       APP
-    ===================================================== */
-
-    .app {
-        padding:
-            25px
-            16px
-            100px;
-    }
-
-    .app h1 {
-        font-size: 36px;
-    }
-} 
-
+}
   
 /* =========================
    HERO LAYOUT
