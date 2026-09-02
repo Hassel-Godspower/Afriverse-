@@ -4017,6 +4017,67 @@ details[open] .nav-chevron {
 
 }
 
+/* =========================================================
+   AFRIVERSE SIDEBAR — DESKTOP + MOBILE SCROLL
+========================================================= */
+
+.side {
+    height: 100dvh;
+    max-height: 100dvh;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    box-sizing: border-box;
+
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: contain;
+    touch-action: pan-y;
+
+    scrollbar-width: thin;
+    scrollbar-color:
+        rgba(255,255,255,.18)
+        transparent;
+}
+
+
+/* =========================================================
+   SIDEBAR SCROLLBAR — CHROME / EDGE / SAFARI
+========================================================= */
+
+.side::-webkit-scrollbar {
+    width: 5px;
+}
+
+.side::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.side::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,.18);
+    border-radius: 999px;
+}
+
+.side::-webkit-scrollbar-thumb:hover {
+    background: rgba(255,255,255,.30);
+}
+
+
+/* =========================================================
+   SIDEBAR INNER CONTENT
+========================================================= */
+
+.side-inner {
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+    min-height: max-content;
+
+    box-sizing: border-box;
+
+    padding-bottom: 30px;
+}
 
 /* =========================
    HERO LAYOUT
