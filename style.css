@@ -2744,8 +2744,8 @@ article p,.tile p {
 }
 
 .hero-visual {
-    width: 300px !important;
-    height: 300px !important;
+    width: 500px !important;
+    height: 500px !important;
 
     display: flex !important;
     align-items: center !important;
