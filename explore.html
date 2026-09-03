@@ -1,1 +1,890 @@
-<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Explore — AfriVerse</title><link rel="stylesheet" href="style.css"></head><body><main style="margin-left:0"><header><a href="index.html">←</a><b>Explore</b><div class="search">⌕ <input placeholder="Search knowledge..."></div><span class="avatar">AV</span></header><div class="app"><label>DISCOVER</label><h1>Explore the network.</h1><p style="color:var(--muted)">Discover contextual knowledge, questions and emerging patterns.</p><div class="cards"><article><b>VERIFIED · AGRICULTURE</b><h3>Local soil practices</h3><p>Nigeria · 24 contributions</p></article><article><b>COMMUNITY · LANGUAGE</b><h3>Hausa expressions</h3><p>Northern Nigeria · 18 contributions</p></article><article><b>REVIEW · WATER</b><h3>Rainwater storage</h3><p>Ghana · 11 contributions</p></article><article><b>COMMUNITY · REPAIR</b><h3>Motorcycle repairs</h3><p>Nigeria · 31 contributions</p></article></div></div></main><script src="script.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Explore — AfriVerse</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    :root {
+      --page-bg: #ffffff;
+      --surface: #ffffff;
+      --surface-soft: #f7f7f8;
+      --surface-hover: #f1f1f3;
+
+      --text: #111111;
+      --text-strong: #000000;
+      --muted: #666666;
+      --muted-light: #888888;
+
+      --border: #e4e4e4;
+      --border-strong: #cccccc;
+
+      --gold: #b88a00;
+      --gold-dark: #8f6900;
+
+      --clay: #a33d32;
+
+      --radius-sm: 10px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      background: #ffffff;
+      color-scheme: light;
+    }
+
+    body {
+      margin: 0;
+      background: #ffffff;
+      color: var(--text);
+
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.55;
+    }
+
+    main {
+      min-height: 100vh;
+      background: #ffffff;
+    }
+
+    /* =========================
+       HEADER
+    ========================= */
+
+    header {
+      height: 64px;
+
+      padding: 0 28px;
+
+      display: flex;
+      align-items: center;
+      gap: 16px;
+
+      background: rgba(255, 255, 255, 0.97);
+
+      border-bottom: 1px solid var(--border);
+
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+
+    header > a {
+      width: 36px;
+      height: 36px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      color: #111111;
+      text-decoration: none;
+
+      border-radius: 50%;
+
+      font-size: 22px;
+
+      transition:
+        background 0.18s ease,
+        transform 0.18s ease;
+    }
+
+    header > a:hover {
+      background: var(--surface-hover);
+      transform: translateX(-2px);
+    }
+
+    header > b {
+      color: #000000;
+
+      font-size: 15px;
+      font-weight: 700;
+
+      letter-spacing: -0.01em;
+    }
+
+    /* =========================
+       SEARCH
+    ========================= */
+
+    .search {
+      margin-left: auto;
+
+      width: 250px;
+      height: 38px;
+
+      padding: 0 12px;
+
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      background: #f7f7f8;
+
+      border: 1px solid #e5e5e5;
+      border-radius: 10px;
+
+      color: #777777;
+
+      font-size: 15px;
+    }
+
+    .search input {
+      width: 100%;
+
+      border: 0;
+      outline: 0;
+
+      background: transparent;
+
+      color: #111111;
+
+      font-family: inherit;
+      font-size: 13px;
+    }
+
+    .search input::placeholder {
+      color: #888888;
+    }
+
+    /* =========================
+       AVATAR
+    ========================= */
+
+    .avatar {
+      width: 34px;
+      height: 34px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 50%;
+
+      background: #111111;
+      color: #ffffff;
+
+      font-size: 11px;
+      font-weight: 700;
+
+      letter-spacing: 0.04em;
+    }
+
+    /* =========================
+       MAIN APP
+    ========================= */
+
+    .app {
+      width: min(100%, 1080px);
+
+      margin: 0 auto;
+
+      padding: 64px 28px 90px;
+    }
+
+    /* =========================
+       PAGE INTRO
+    ========================= */
+
+    .app > label {
+      display: block;
+
+      margin-bottom: 12px;
+
+      color: var(--gold-dark);
+
+      font-size: 11px;
+      font-weight: 800;
+
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .app h1 {
+      margin: 0;
+
+      color: #000000;
+
+      font-size: clamp(38px, 6vw, 64px);
+      line-height: 1.02;
+
+      letter-spacing: -0.045em;
+
+      font-weight: 800;
+    }
+
+    .app > p {
+      max-width: 680px;
+
+      margin: 18px 0 0;
+
+      color: #555555 !important;
+
+      font-size: 17px;
+      line-height: 1.65;
+    }
+
+    /* =========================
+       EXPLORE TOOLBAR
+    ========================= */
+
+    .explore-toolbar {
+      margin-top: 42px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 20px;
+
+      padding-bottom: 16px;
+
+      border-bottom: 1px solid var(--border);
+    }
+
+    .explore-toolbar strong {
+      color: #111111;
+
+      font-size: 14px;
+      font-weight: 750;
+    }
+
+    .explore-toolbar span {
+      color: #777777;
+
+      font-size: 12px;
+    }
+
+    /* =========================
+       FILTERS
+    ========================= */
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+
+      gap: 8px;
+
+      margin-top: 18px;
+    }
+
+    .filter {
+      padding: 8px 13px;
+
+      background: #ffffff;
+
+      border: 1px solid #dddddd;
+      border-radius: 999px;
+
+      color: #555555;
+
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 600;
+
+      cursor: pointer;
+
+      transition:
+        background 0.18s ease,
+        color 0.18s ease,
+        border-color 0.18s ease;
+    }
+
+    .filter:hover {
+      background: #f5f5f5;
+      border-color: #c8c8c8;
+      color: #111111;
+    }
+
+    .filter.active {
+      background: #111111;
+      border-color: #111111;
+
+      color: #ffffff;
+    }
+
+    /* =========================
+       KNOWLEDGE GRID
+    ========================= */
+
+    .cards {
+      display: grid;
+
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+
+      gap: 14px;
+
+      margin-top: 28px;
+    }
+
+    /* =========================
+       KNOWLEDGE CARD
+    ========================= */
+
+    .cards article {
+      position: relative;
+
+      min-height: 205px;
+
+      padding: 24px;
+
+      display: flex;
+      flex-direction: column;
+
+      background: #ffffff;
+
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+
+      cursor: pointer;
+
+      transition:
+        border-color 0.18s ease,
+        background 0.18s ease,
+        transform 0.18s ease,
+        box-shadow 0.18s ease;
+    }
+
+    .cards article:hover {
+      background: #fafafa;
+
+      border-color: var(--border-strong);
+
+      transform: translateY(-3px);
+
+      box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.05);
+    }
+
+    /* =========================
+       CARD CATEGORY
+    ========================= */
+
+    .card-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 12px;
+
+      margin-bottom: 22px;
+    }
+
+    .cards article > b {
+      display: block;
+
+      color: var(--gold-dark);
+
+      font-size: 10px;
+      font-weight: 800;
+
+      letter-spacing: 0.12em;
+      line-height: 1.4;
+    }
+
+    /* =========================
+       VERIFIED MARK
+    ========================= */
+
+    .verified {
+      width: 18px;
+      height: 18px;
+
+      flex: 0 0 auto;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 50%;
+
+      background: var(--clay);
+      color: #ffffff;
+
+      font-size: 10px;
+      font-weight: 800;
+    }
+
+    /* =========================
+       CARD CONTENT
+    ========================= */
+
+    .cards h3 {
+      margin: 0;
+
+      color: #000000;
+
+      font-size: 21px;
+      line-height: 1.25;
+
+      letter-spacing: -0.02em;
+
+      font-weight: 750;
+    }
+
+    .cards p {
+      margin: 9px 0 0;
+
+      color: #666666;
+
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    /* =========================
+       CARD FOOTER
+    ========================= */
+
+    .card-footer {
+      margin-top: auto;
+
+      padding-top: 24px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      border-top: 1px solid #eeeeee;
+
+      color: #777777;
+
+      font-size: 11px;
+    }
+
+    .card-footer strong {
+      color: #333333;
+
+      font-weight: 700;
+    }
+
+    .card-arrow {
+      color: #111111;
+
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    /* =========================
+       FOCUS
+    ========================= */
+
+    button:focus-visible,
+    a:focus-visible,
+    article:focus-visible,
+    input:focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 3px;
+    }
+
+    /* =========================
+       TABLET
+    ========================= */
+
+    @media (max-width: 760px) {
+
+      header {
+        height: 58px;
+
+        padding: 0 16px;
+
+        gap: 10px;
+      }
+
+      header > b {
+        font-size: 14px;
+      }
+
+      .search {
+        display: none;
+      }
+
+      .avatar {
+        margin-left: auto;
+      }
+
+      .app {
+        padding: 42px 18px 65px;
+      }
+
+      .app h1 {
+        font-size: 42px;
+      }
+
+      .app > p {
+        font-size: 15px;
+        line-height: 1.6;
+      }
+
+      .explore-toolbar {
+        margin-top: 32px;
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+
+        gap: 10px;
+
+        margin-top: 22px;
+      }
+
+      .cards article {
+        min-height: 190px;
+
+        padding: 20px;
+      }
+    }
+
+    /* =========================
+       SMALL MOBILE
+    ========================= */
+
+    @media (max-width: 430px) {
+
+      .app {
+        padding-left: 15px;
+        padding-right: 15px;
+      }
+
+      .app h1 {
+        font-size: 38px;
+      }
+
+      .app > p {
+        font-size: 14px;
+      }
+
+      .explore-toolbar {
+        align-items: flex-start;
+        flex-direction: column;
+
+        gap: 5px;
+      }
+
+      .filters {
+        gap: 6px;
+      }
+
+      .filter {
+        padding: 7px 11px;
+      }
+
+      .cards article {
+        min-height: 180px;
+      }
+
+      .cards h3 {
+        font-size: 19px;
+      }
+    }
+
+    /* =========================
+       REDUCED MOTION
+    ========================= */
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        transition: none !important;
+        animation: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<main style="margin-left:0">
+
+  <!-- HEADER -->
+  <header>
+
+    <a
+      href="index.html"
+      aria-label="Back to AfriVerse home"
+    >
+      ←
+    </a>
+
+    <b>Explore</b>
+
+    <div class="search">
+      <span>⌕</span>
+
+      <input
+        type="search"
+        placeholder="Search knowledge..."
+        aria-label="Search knowledge"
+      >
+    </div>
+
+    <span class="avatar">AV</span>
+
+  </header>
+
+
+  <!-- MAIN -->
+  <div class="app">
+
+    <label>DISCOVER</label>
+
+    <h1>Explore the network.</h1>
+
+    <p>
+      Discover
+      <strong>contextual knowledge, questions and emerging patterns</strong>
+      contributed by people across Africa.
+    </p>
+
+
+    <!-- TOOLBAR -->
+    <div class="explore-toolbar">
+
+      <strong>Knowledge discovery</strong>
+
+      <span>Explore what people are contributing.</span>
+
+    </div>
+
+
+    <!-- FILTERS -->
+    <div class="filters">
+
+      <button class="filter active">
+        All
+      </button>
+
+      <button class="filter">
+        Agriculture
+      </button>
+
+      <button class="filter">
+        Language
+      </button>
+
+      <button class="filter">
+        Water
+      </button>
+
+      <button class="filter">
+        Repair
+      </button>
+
+      <button class="filter">
+        Culture
+      </button>
+
+      <button class="filter">
+        Health
+      </button>
+
+    </div>
+
+
+    <!-- KNOWLEDGE CARDS -->
+    <div class="cards">
+
+
+      <!-- CARD 1 -->
+      <article tabindex="0">
+
+        <div class="card-meta">
+
+          <b>VERIFIED · AGRICULTURE</b>
+
+          <span
+            class="verified"
+            title="Verified knowledge"
+            aria-label="Verified knowledge"
+          >
+            ✓
+          </span>
+
+        </div>
+
+        <h3>
+          Local soil practices
+        </h3>
+
+        <p>
+          Practical knowledge about preparing and working with
+          local soils for better agricultural outcomes.
+        </p>
+
+        <div class="card-footer">
+
+          <span>
+            Nigeria · <strong>24 contributions</strong>
+          </span>
+
+          <span class="card-arrow">
+            →
+          </span>
+
+        </div>
+
+      </article>
+
+
+      <!-- CARD 2 -->
+      <article tabindex="0">
+
+        <div class="card-meta">
+
+          <b>COMMUNITY · LANGUAGE</b>
+
+        </div>
+
+        <h3>
+          Hausa expressions
+        </h3>
+
+        <p>
+          Everyday Hausa expressions, meanings and the contexts
+          in which people naturally use them.
+        </p>
+
+        <div class="card-footer">
+
+          <span>
+            Northern Nigeria · <strong>18 contributions</strong>
+          </span>
+
+          <span class="card-arrow">
+            →
+          </span>
+
+        </div>
+
+      </article>
+
+
+      <!-- CARD 3 -->
+      <article tabindex="0">
+
+        <div class="card-meta">
+
+          <b>REVIEW · WATER</b>
+
+        </div>
+
+        <h3>
+          Rainwater storage
+        </h3>
+
+        <p>
+          Community knowledge about collecting, storing and
+          managing rainwater during the rainy season.
+        </p>
+
+        <div class="card-footer">
+
+          <span>
+            Ghana · <strong>11 contributions</strong>
+          </span>
+
+          <span class="card-arrow">
+            →
+          </span>
+
+        </div>
+
+      </article>
+
+
+      <!-- CARD 4 -->
+      <article tabindex="0">
+
+        <div class="card-meta">
+
+          <b>COMMUNITY · REPAIR</b>
+
+        </div>
+
+        <h3>
+          Motorcycle repairs
+        </h3>
+
+        <p>
+          Practical repair knowledge shared by people who
+          maintain motorcycles in everyday conditions.
+        </p>
+
+        <div class="card-footer">
+
+          <span>
+            Nigeria · <strong>31 contributions</strong>
+          </span>
+
+          <span class="card-arrow">
+            →
+          </span>
+
+        </div>
+
+      </article>
+
+    </div>
+
+  </div>
+
+</main>
+
+
+<script src="script.js"></script>
+
+<script>
+  /*
+   * Simple category filter interaction.
+   * This is frontend-only for the MVP.
+   */
+
+  const filters = document.querySelectorAll(".filter");
+  const cards = document.querySelectorAll(".cards article");
+
+  filters.forEach(filter => {
+
+    filter.addEventListener("click", () => {
+
+      filters.forEach(item => {
+        item.classList.remove("active");
+      });
+
+      filter.classList.add("active");
+
+      const selected = filter.textContent.trim().toLowerCase();
+
+      cards.forEach(card => {
+
+        if (selected === "all") {
+          card.style.display = "";
+          return;
+        }
+
+        const category = card
+          .querySelector("b")
+          .textContent
+          .toLowerCase();
+
+        card.style.display =
+          category.includes(selected)
+            ? ""
+            : "none";
+      });
+
+    });
+
+  });
+</script>
+
+</body>
+</html>
