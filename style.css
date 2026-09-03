@@ -2849,11 +2849,11 @@ article p,.tile p {
     }
 
     .hero-video {
-        width: 280px !important;
-        height: 280px !important;
+        width: 350px !important;
+        height: 350px !important;
 
-        max-width: 280px !important;
-        max-height: 280px !important;
+        max-width: 400px !important;
+        max-height: 400px !important;
     }
 
 }
