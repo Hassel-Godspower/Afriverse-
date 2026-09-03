@@ -2730,3 +2730,130 @@ article p,.tile p {
     }
 
 }
+
+
+/* =========================================================
+   AFRIVERSE HERO VIDEO — FINAL OVERRIDE
+========================================================= */
+
+.hero-content {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) 300px !important;
+    align-items: center !important;
+    gap: 60px !important;
+}
+
+.hero-visual {
+    width: 300px !important;
+    height: 300px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    position: relative !important;
+
+    flex-shrink: 0 !important;
+}
+
+.hero-video {
+    position: relative !important;
+
+    width: 300px !important;
+    height: 300px !important;
+
+    max-width: 300px !important;
+    max-height: 300px !important;
+
+    display: block !important;
+
+    object-fit: contain !important;
+    object-position: center !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    border: 0 !important;
+    outline: none !important;
+
+    background: transparent !important;
+
+    z-index: 1 !important;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .hero-content {
+        grid-template-columns: 1fr 300px !important;
+        gap: 35px !important;
+    }
+
+    .hero-visual {
+        width: 300px !important;
+        height: 300px !important;
+    }
+
+    .hero-video {
+        width: 300px !important;
+        height: 300px !important;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .hero-content {
+        grid-template-columns: 1fr !important;
+        gap: 40px !important;
+    }
+
+    .hero-visual {
+        width: 300px !important;
+        height: 300px !important;
+
+        max-width: 100% !important;
+
+        margin: 0 auto !important;
+    }
+
+    .hero-video {
+        width: 300px !important;
+        height: 300px !important;
+
+        max-width: 100% !important;
+        max-height: 100% !important;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL PHONES
+========================================================= */
+
+@media (max-width: 380px) {
+
+    .hero-visual {
+        width: 280px !important;
+        height: 280px !important;
+    }
+
+    .hero-video {
+        width: 280px !important;
+        height: 280px !important;
+
+        max-width: 280px !important;
+        max-height: 280px !important;
+    }
+
+}
