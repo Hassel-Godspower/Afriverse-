@@ -2850,7 +2850,7 @@ article p,.tile p {
     }
 
     .hero-video {
-        top-padding: 20px
+        padding-top: 20px !important;
         width: 350px !important;
         height: 350px !important;
 
