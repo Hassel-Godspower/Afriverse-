@@ -2744,8 +2744,8 @@ article p,.tile p {
 }
 
 .hero-visual {
-    width: 500px !important;
-    height: 500px !important;
+    width: 300px !important;
+    height: 300px !important;
 
     display: flex !important;
     align-items: center !important;
@@ -2759,8 +2759,8 @@ article p,.tile p {
 .hero-video {
     position: relative !important;
 
-    width: 300px !important;
-    height: 300px !important;
+    width: 500px !important;
+    height: 500px !important;
 
     max-width: 300px !important;
     max-height: 300px !important;
