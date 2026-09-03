@@ -2762,8 +2762,8 @@ article p,.tile p {
     width: 500px !important;
     height: 500px !important;
 
-    max-width: 300px !important;
-    max-height: 300px !important;
+    max-width: 500px !important;
+    max-height: 500px !important;
 
     display: block !important;
 
