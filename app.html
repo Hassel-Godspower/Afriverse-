@@ -1,1 +1,700 @@
-<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Ask AfriVerse</title><link rel="stylesheet" href="style.css"></head><body><main style="margin-left:0"><header><a href="index.html">←</a><b>Ask AfriVerse</b><div class="search">⌕ <input placeholder="Search..."></div><span class="avatar">AV</span></header><div class="app"><label>AFRIVERSE AI</label><h1>Ask AfriVerse.</h1><p style="color:var(--muted)">Ask practical questions and specify country, region or language for stronger context.</p><div class="cards"><article><b>CONTEXT</b><h3>Ground answers locally</h3><p>Specify geography and language.</p></article><article><b>PROVENANCE</b><h3>Show where knowledge comes from</h3><p>Community, expert and research status.</p></article><article><b>SAFETY</b><h3>Know the confidence</h3><p>Higher-risk information needs stronger validation.</p></article></div><div class="chat" id="chat"><div class="msg"><div class="bubble"><b>Welcome to AfriVerse.</b><br>Try: “What low-rainfall farming practices are reported in northern Nigeria?”</div></div></div><form class="command" id="chatForm"><textarea id="chatInput" placeholder="Ask anything..."></textarea><button class="primary">Send ↑</button></form><p style="font-size:11px;color:var(--muted);text-align:center">MVP interface — responses are simulated until the backend is connected.</p></div></main><script src="script.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ask AfriVerse</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    :root {
+      --page-bg: #ffffff;
+      --surface: #ffffff;
+      --surface-soft: #f7f7f8;
+      --surface-hover: #f1f1f3;
+
+      --text: #111111;
+      --text-strong: #000000;
+      --muted: #666666;
+      --muted-light: #888888;
+
+      --border: #e4e4e4;
+      --border-strong: #d0d0d0;
+
+      --gold: #b88a00;
+      --gold-dark: #8f6900;
+
+      --radius-sm: 10px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      background: var(--page-bg);
+      color-scheme: light;
+    }
+
+    body {
+      margin: 0;
+      background: var(--page-bg);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.55;
+    }
+
+    main {
+      min-height: 100vh;
+      background: #ffffff;
+    }
+
+    /* =========================
+       HEADER
+    ========================= */
+
+    header {
+      height: 64px;
+      padding: 0 28px;
+
+      display: flex;
+      align-items: center;
+      gap: 16px;
+
+      background: rgba(255, 255, 255, 0.96);
+      border-bottom: 1px solid var(--border);
+
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+
+    header > a {
+      width: 36px;
+      height: 36px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      color: #111111;
+      text-decoration: none;
+
+      border-radius: 50%;
+      font-size: 22px;
+
+      transition:
+        background 0.18s ease,
+        transform 0.18s ease;
+    }
+
+    header > a:hover {
+      background: var(--surface-hover);
+      transform: translateX(-2px);
+    }
+
+    header > b {
+      color: #000000;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    .search {
+      margin-left: auto;
+
+      height: 38px;
+      width: 220px;
+
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      padding: 0 12px;
+
+      background: #f7f7f8;
+      border: 1px solid #e5e5e5;
+      border-radius: 10px;
+
+      color: #777777;
+      font-size: 15px;
+    }
+
+    .search input {
+      width: 100%;
+      border: 0;
+      outline: 0;
+
+      background: transparent;
+
+      color: #111111;
+      font-size: 13px;
+      font-family: inherit;
+    }
+
+    .search input::placeholder {
+      color: #888888;
+    }
+
+    .avatar {
+      width: 34px;
+      height: 34px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 50%;
+
+      background: #111111;
+      color: #ffffff;
+
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    /* =========================
+       MAIN APP
+    ========================= */
+
+    .app {
+      width: min(100%, 1080px);
+      margin: 0 auto;
+      padding: 64px 28px 80px;
+    }
+
+    /* =========================
+       INTRO
+    ========================= */
+
+    .app > label {
+      display: block;
+
+      margin-bottom: 12px;
+
+      color: var(--gold-dark);
+
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .app h1 {
+      margin: 0;
+
+      color: #000000;
+
+      font-size: clamp(38px, 6vw, 64px);
+      line-height: 1.02;
+      letter-spacing: -0.045em;
+      font-weight: 800;
+    }
+
+    .app > p {
+      max-width: 680px;
+
+      margin: 18px 0 0;
+
+      color: #555555 !important;
+
+      font-size: 17px;
+      line-height: 1.65;
+    }
+
+    /* =========================
+       INFORMATION CARDS
+    ========================= */
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+
+      margin-top: 40px;
+    }
+
+    .cards article {
+      padding: 22px;
+
+      background: #ffffff;
+
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+
+      transition:
+        border-color 0.18s ease,
+        background 0.18s ease,
+        transform 0.18s ease;
+    }
+
+    .cards article:hover {
+      background: #fafafa;
+      border-color: var(--border-strong);
+      transform: translateY(-2px);
+    }
+
+    .cards article > b {
+      display: block;
+
+      margin-bottom: 12px;
+
+      color: var(--gold-dark);
+
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+    }
+
+    .cards h3 {
+      margin: 0;
+
+      color: #000000;
+
+      font-size: 17px;
+      line-height: 1.3;
+      font-weight: 750;
+      letter-spacing: -0.015em;
+    }
+
+    .cards p {
+      margin: 8px 0 0;
+
+      color: #666666;
+
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    /* =========================
+       CHAT
+    ========================= */
+
+    .chat {
+      width: 100%;
+
+      margin-top: 42px;
+      padding: 28px 0;
+
+      min-height: 260px;
+
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .msg {
+      display: flex;
+      align-items: flex-start;
+
+      width: 100%;
+    }
+
+    .bubble {
+      max-width: 760px;
+
+      padding: 18px 20px;
+
+      background: #f7f7f8;
+
+      border: 1px solid #e8e8e8;
+      border-radius: 16px;
+
+      color: #222222;
+
+      font-size: 15px;
+      line-height: 1.65;
+    }
+
+    .bubble b {
+      color: #000000;
+      font-weight: 750;
+    }
+
+    /* =========================
+       CHAT COMMAND
+    ========================= */
+
+    .command {
+      position: relative;
+
+      display: flex;
+      align-items: flex-end;
+      gap: 10px;
+
+      margin-top: 18px;
+
+      padding: 8px;
+
+      background: #ffffff;
+
+      border: 1px solid #cccccc;
+      border-radius: 17px;
+
+      box-shadow:
+        0 2px 5px rgba(0, 0, 0, 0.04),
+        0 8px 30px rgba(0, 0, 0, 0.04);
+
+      transition:
+        border-color 0.18s ease,
+        box-shadow 0.18s ease;
+    }
+
+    .command:focus-within {
+      border-color: #999999;
+
+      box-shadow:
+        0 0 0 3px rgba(184, 138, 0, 0.08),
+        0 8px 30px rgba(0, 0, 0, 0.05);
+    }
+
+    .command textarea {
+      flex: 1;
+
+      min-height: 54px;
+      max-height: 180px;
+
+      padding: 14px 14px 10px;
+
+      resize: vertical;
+
+      border: 0;
+      outline: 0;
+
+      background: transparent;
+
+      color: #111111;
+
+      font-family: inherit;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .command textarea::placeholder {
+      color: #888888;
+    }
+
+    .command .primary {
+      min-width: 82px;
+      height: 42px;
+
+      padding: 0 18px;
+
+      border: 0;
+      border-radius: 11px;
+
+      background: #111111;
+      color: #ffffff;
+
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 700;
+
+      cursor: pointer;
+
+      transition:
+        background 0.18s ease,
+        transform 0.18s ease;
+    }
+
+    .command .primary:hover {
+      background: #000000;
+      transform: translateY(-1px);
+    }
+
+    .command .primary:active {
+      transform: translateY(0);
+    }
+
+    /* =========================
+       FOOTNOTE
+    ========================= */
+
+    .app > p:last-child {
+      margin-top: 14px;
+
+      color: #888888 !important;
+
+      font-size: 11px !important;
+      line-height: 1.5;
+
+      text-align: center;
+    }
+
+    /* =========================
+       FOCUS
+    ========================= */
+
+    a:focus-visible,
+    button:focus-visible,
+    textarea:focus-visible,
+    input:focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 3px;
+    }
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    @media (max-width: 760px) {
+
+      header {
+        height: 58px;
+        padding: 0 16px;
+        gap: 10px;
+      }
+
+      header > b {
+        font-size: 14px;
+      }
+
+      .search {
+        display: none;
+      }
+
+      .avatar {
+        margin-left: auto;
+      }
+
+      .app {
+        padding: 42px 18px 60px;
+      }
+
+      .app h1 {
+        font-size: 42px;
+      }
+
+      .app > p {
+        font-size: 15px;
+        line-height: 1.6;
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        margin-top: 30px;
+      }
+
+      .cards article {
+        padding: 18px;
+      }
+
+      .chat {
+        margin-top: 32px;
+        padding: 22px 0;
+        min-height: 220px;
+      }
+
+      .bubble {
+        max-width: 92%;
+        padding: 15px 16px;
+        font-size: 14px;
+      }
+
+      .command {
+        border-radius: 15px;
+        padding: 7px;
+      }
+
+      .command textarea {
+        min-height: 50px;
+        font-size: 14px;
+      }
+
+      .command .primary {
+        min-width: 70px;
+        height: 40px;
+        padding: 0 14px;
+      }
+    }
+
+    @media (max-width: 430px) {
+
+      .app {
+        padding-left: 15px;
+        padding-right: 15px;
+      }
+
+      .app h1 {
+        font-size: 38px;
+      }
+
+      .app > p {
+        font-size: 14px;
+      }
+
+      .bubble {
+        max-width: 100%;
+      }
+
+      .command {
+        align-items: stretch;
+      }
+
+      .command textarea {
+        min-width: 0;
+      }
+
+      .command .primary {
+        align-self: flex-end;
+      }
+    }
+
+    /* =========================
+       REDUCED MOTION
+    ========================= */
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition: none !important;
+        animation: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<main style="margin-left:0">
+
+  <!-- HEADER -->
+  <header>
+    <a href="index.html" aria-label="Back to AfriVerse home">←</a>
+
+    <b>Ask AfriVerse</b>
+
+    <div class="search">
+      <span>⌕</span>
+      <input
+        type="search"
+        placeholder="Search..."
+        aria-label="Search AfriVerse"
+      >
+    </div>
+
+    <span class="avatar">AV</span>
+  </header>
+
+
+  <!-- MAIN CONTENT -->
+  <div class="app">
+
+    <label>AFRIVERSE AI</label>
+
+    <h1>Ask AfriVerse.</h1>
+
+    <p>
+      Ask practical questions and specify your
+      <strong>country, region or language</strong>
+      for stronger context.
+    </p>
+
+
+    <!-- CONTEXT CARDS -->
+    <div class="cards">
+
+      <article>
+        <b>CONTEXT</b>
+
+        <h3>Ground answers locally</h3>
+
+        <p>
+          Specify geography and language so answers can reflect
+          the context in which people actually live.
+        </p>
+      </article>
+
+
+      <article>
+        <b>PROVENANCE</b>
+
+        <h3>Show where knowledge comes from</h3>
+
+        <p>
+          Understand whether information comes from
+          <strong>community knowledge, experts or research.</strong>
+        </p>
+      </article>
+
+
+      <article>
+        <b>SAFETY</b>
+
+        <h3>Know the confidence</h3>
+
+        <p>
+          Higher-risk information requires
+          <strong>stronger validation and clearer confidence.</strong>
+        </p>
+      </article>
+
+    </div>
+
+
+    <!-- CHAT -->
+    <div class="chat" id="chat">
+
+      <div class="msg">
+
+        <div class="bubble">
+          <b>Welcome to AfriVerse.</b>
+          <br><br>
+
+          Ask a practical question about Africa,
+          local knowledge, culture, agriculture, health,
+          business, technology or everyday life.
+          <br><br>
+
+          Try:
+          <strong>
+            “What low-rainfall farming practices are reported
+            in northern Nigeria?”
+          </strong>
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- CHAT INPUT -->
+    <form class="command" id="chatForm">
+
+      <textarea
+        id="chatInput"
+        placeholder="Ask anything..."
+        aria-label="Ask AfriVerse a question"
+        rows="1"
+      ></textarea>
+
+      <button
+        type="submit"
+        class="primary"
+      >
+        Send ↑
+      </button>
+
+    </form>
+
+
+    <!-- MVP NOTICE -->
+    <p>
+      MVP interface — responses are simulated until the backend is connected.
+    </p>
+
+  </div>
+
+</main>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
